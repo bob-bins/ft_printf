@@ -465,7 +465,7 @@ int     ft_printf(const char *format, ...)
     }
     return (0);
 }
-
+/*
 int main()
 {
     setlocale(LC_ALL, "");
@@ -496,4 +496,4 @@ int main()
     ft_printf("ft_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078);
        printf("ac_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078); 
     return (0);
-}
+}*/

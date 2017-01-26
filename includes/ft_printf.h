@@ -28,5 +28,7 @@ typedef struct      s_placehold
     unsigned short  uppercase;
 }                   t_placehold;
 
+int					ft_printf(const char *format, ...);
+
 #endif
 

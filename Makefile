@@ -3,34 +3,29 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaylor <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: mchen <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/12/14 20:26:35 by jaylor            #+#    #+#              #
-#    Updated: 2016/12/17 16:03:15 by mchen            ###   ########.fr        #
+#    Created: 2016/11/29 21:36:07 by mchen             #+#    #+#              #
+#    Updated: 2016/12/06 11:33:29 by mchen            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_printf
-FILESC = ft_printf.c
-FILESO = ft_printf.o
-HEADERS = includes
-LIBFT_DIR = libft
-LIBFT_NAME := ft
+NAME = libftprintf.a
+INCLUDE = includes/ft_printf.h
+SRC = ft_printf.c libft/ft_*.c
+OBJ = ft_*.o
 
 all: $(NAME)
 
 $(NAME):
-	cd $(LIBFT_DIR) && make
-	gcc -Wall -Wextra -Werror -I $(HEADERS) -c $(FILESC)
-	gcc -o $(NAME) $(FILESO) -L$(LIBFT_DIR) -l$(LIBFT_NAME)
+		gcc -Wall -Werror -Wextra -c $(SRC)
+		ar rc $(NAME) $(OBJ)
+		ranlib $(NAME)
 
-clean: make_libft_clean
-	rm -f $(FILESO)
+clean:
+		/bin/rm -f $(OBJ)
 
-make_libft_clean:
-	cd $(LIBFT_DIR) && make fclean
-
-fclean: clean 
-	rm -f $(NAME)
+fclean: clean
+		/bin/rm -f $(NAME)
 
 re: fclean all

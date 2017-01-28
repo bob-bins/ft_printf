@@ -6,6 +6,8 @@ void	ft_strrev(char *s)
 	char *e;
 	char t;
 
+	if (!s)
+		return ;
 	e = s;
 	while (*e)
 		e++;
@@ -18,19 +20,33 @@ void	ft_strrev(char *s)
 	}
 }
 
-void    ft_putnstr_fd(int fd, char *s, size_t n)
+int    ft_putnstr_fd(int fd, char *s, int n)
 {
+    int count;
+    
+    count = 0;
     if (n > 0)
     {
         while (*s && n-- > 0)
+        {
             ft_putchar_fd(*s++, fd);
+            count++;
+        }
     }
+    return (count);
 }
 
-void    ft_putnchar_fd(int fd, char c, intmax_t n)
+int    ft_putnchar_fd(int fd, char c, int n)
 {
+    int count;
+    
+    count = 0;
     while (n-- > 0)
+	{
         write(fd, &c, 1);
+		count++;
+	}
+    return (count);
 }
 
 void    init_placehold(t_placehold *p)
@@ -96,7 +112,7 @@ void     set_type_field(t_placehold *p, t_format *f)
 {
     if (ft_strchr("%sSpdDioOuUxXcC", *(f->e)))
     {
-        if (ft_strchr("dDi", *(f->e)))
+        if (ft_strchr("dDiuU", *(f->e)))
             p->base = 10;
         else if (ft_strchr("oO", *(f->e)))
             p->base = 8;
@@ -110,12 +126,13 @@ void     set_type_field(t_placehold *p, t_format *f)
         {
             if (p->length)
                 free(p->length);
-            p->length = "l";
+            p->length = ft_strdup("l");
         }
         if (ft_strchr("dDi", *(f->e)))
             p->signed_num = 1;
+		p->precision = ft_strchr("%", *(f->e)) ? 1 : p->precision;
         p->padding = ft_strchr("cCsS", *(f->e)) ? ' ' : p->padding;
-        p->sign = (p->base != 10 ? 0 : p->sign);
+        p->sign = (!ft_strchr("dDi", *(f->e)) ? 0 : p->sign);
         set_hash(p, f);
         p->type = *(f->e);
     }
@@ -186,7 +203,7 @@ void     set_precision_field(t_placehold *p, t_format *f, va_list a_list)
             p->precision = va_arg(a_list, int);
             f->e++;
         }
-        else if (*(f->e) >= '1' && *(f->e) <= '9')
+        else
         {
             while (*(f->e) >= '0' && *(f->e) <= '9')
                 p->precision = p->precision * 10 + (*(f->e++) - '0');
@@ -276,12 +293,19 @@ unsigned short  ft_uintmax_len(uintmax_t num, unsigned short base)
     unsigned int    i;
     
     i = 0;
-    while (num != 0 && i == 0)
+    while (num != 0 || i == 0)
     {
         i++;
         num = num / base;
     }
     return (i);
+}
+
+int max(int a, int b)
+{
+    if (a > b)
+        return (a);
+    return (b);
 }
 
 char	*ft_uitoa_base(uintmax_t value, unsigned short base, unsigned short uppercase, int digits)
@@ -292,9 +316,9 @@ char	*ft_uitoa_base(uintmax_t value, unsigned short base, unsigned short upperca
 
 	dig = "0123456789abcdef0123456789ABCDEF";
     dig += 16 * uppercase;
-	ret = malloc(sizeof(*ret) * (ft_uintmax_len(value, base) + 1));
+	ret = malloc(sizeof(*ret) * (digits + 1));
 	i = 0;
-	while (value != 0 || i == 0 || i < digits)
+	while (value != 0 || (i == 0 && digits != 0) || i < digits)
 	{
 		ret[i++] = dig[value % base];
 		value /= base;
@@ -326,6 +350,10 @@ char    *ft_printf_itoa_base(t_placehold *p, va_list a_list)
     }
     else
         uint = cast_uintmax(va_arg(a_list, uintmax_t), p);
+	if (uint == 0 && !ft_strchr("oO", p->type))
+		p->hash = NULL;
+    else if (uint > 0)
+        p->precision = max(ft_uintmax_len(uint, p->base), p->precision);
     return (ft_uitoa_base(uint, p->base, p->uppercase, p->precision));
 }
 
@@ -394,11 +422,13 @@ char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
     return (s);
 }
 
-void    print_eval(t_placehold *p, va_list a_list)
+unsigned int    print_eval(t_placehold *p, va_list a_list)
 {
-    char    *str;
-    size_t  slen;
+    char            *str;
+    size_t          slen;
+    int    count;
 
+	count = 0;
     if (ft_strchr("dDioOuUxX", p->type))
         str = ft_printf_itoa_base(p, a_list);
     else if (ft_strchr("cC", p->type))
@@ -408,23 +438,24 @@ void    print_eval(t_placehold *p, va_list a_list)
     else if (p->type == '%')
 		str = ft_strdup("%");
 	else
-		return ;
-    slen = (ft_strchr("cC", p->type) ? 1 : ft_strlen(str)) + ft_strlen(p->hash);
-    if (p->precision == -1)
+		return (count);
+    slen = (ft_strchr("cC", p->type) ? 1 : ft_strlen(str)) + ft_strlen(p->hash) + (p->sign != 0 ? 1 : 0);
+    if (p->padding == '0')
     {
-        ft_putstr_fd(p->hash, 1);
-        ft_putchar_fd(p->sign, 1);
+        count += ft_putstr_fd(p->hash, 1);
+        count += ft_putchar_fd(p->sign, 1);
     }
     if (p->leftalign == 0)
-        ft_putnchar_fd(1, p->padding, p->width - slen - (p->sign != 0 ? 1 : 0));
-    if (p->precision > 0)
+        count += ft_putnchar_fd(1, p->padding, p->width - slen);
+    if (p->padding == ' ')
     {
-        ft_putstr_fd(p->hash, 1);
-        ft_putchar_fd(p->sign, 1);
+        count += ft_putstr_fd(p->hash, 1);
+        count += ft_putchar_fd(p->sign, 1);
     }
-    ft_putnstr_fd(1, str, p->precision == -1 ? slen : p->precision);
+    count += ft_putnstr_fd(1, str, p->precision == -1 ? slen : p->precision);
+    count += (ft_strchr("cC", p->type) && ft_strlen(str) == 0) ? 1 : 0;
     if (p->leftalign)
-        ft_putnchar_fd(1, p->padding, p->width - slen);
+        count += ft_putnchar_fd(1, p->padding, p->width - slen);
     if (str)
     {
         free(str);
@@ -432,6 +463,7 @@ void    print_eval(t_placehold *p, va_list a_list)
     }
     if (p->length)
         free(p->length);
+    return (count);
 }
 
 int     ft_printf(const char *format, ...)
@@ -439,7 +471,9 @@ int     ft_printf(const char *format, ...)
     t_placehold *p;
     t_format    *f;
     va_list     a_list;
+    int count;
 
+    count = 0;
     if (format)
     {
         f = malloc(sizeof(*f));
@@ -453,17 +487,17 @@ int     ft_printf(const char *format, ...)
                 init_placehold(p);
                 f->e = f->s + 1;
                 eval_fields(p, f, a_list);
-                print_eval(p, a_list);
+                count += print_eval(p, a_list);
                 f->s = f->e;
             }
             else
-                ft_putchar(*(f->s));
+                count += ft_putchar_fd(*(f->s), 1);
             if (*(f->s))
                 f->s++;
         }
         va_end(a_list);
     }
-    return (0);
+    return (count);
 }
 /*
 int main()

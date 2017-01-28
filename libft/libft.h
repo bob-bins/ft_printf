@@ -71,13 +71,13 @@ char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
-void				ft_putchar(unsigned char c);
-void				ft_putstr(char const *s);
+int					ft_putchar(char c);
+int					ft_putstr(char const *s);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
-void				ft_putchar_fd(unsigned char c, int fd);
+int					ft_putchar_fd(char c, int fd);
 void				ft_putwchar_fd(wchar_t c, int fd);
-void				ft_putstr_fd(char const *s, int fd);
+int					ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(void const *content, size_t content_size,

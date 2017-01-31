@@ -91,11 +91,11 @@ void    init_placehold(t_placehold *p)
 
 void    set_hash(t_placehold *p, t_format *f)
 {
-    if (p->hash)
+    if (p->hash || *(f->e) =='p')
     {
         if (ft_strchr("oO", *(f->e)))
             p->hash = "0";
-        else if (ft_strchr("x", *(f->e)))
+        else if (ft_strchr("px", *(f->e)))
             p->hash = "0x";
         else if (ft_strchr("X", *(f->e)))
             p->hash = "0X";
@@ -116,7 +116,7 @@ void     set_type_field(t_placehold *p, t_format *f)
             p->base = 10;
         else if (ft_strchr("oO", *(f->e)))
             p->base = 8;
-        else if (ft_strchr("xX", *(f->e)))
+        else if (ft_strchr("pxX", *(f->e)))
         {
             p->base = 16;
             if (*(f->e) == 'X')
@@ -136,6 +136,8 @@ void     set_type_field(t_placehold *p, t_format *f)
         set_hash(p, f);
         p->type = *(f->e);
     }
+	else
+		p->type = '%'; //crap delete this later
 }
 
 /*void     set_parameter_field(t_placehold *p, t_format *f)
@@ -332,7 +334,7 @@ char	*ft_uitoa_base(uintmax_t value, unsigned short base, unsigned short upperca
 ** Casts integer appropriately, stores its sign in p, then prints out the number as unsigned with p->sign in front
 */
 
-char    *ft_printf_itoa_base(t_placehold *p, va_list a_list)
+char    *ft_printf_itoa_base(t_placehold *p, t_format *f, va_list a_list)
 {
     intmax_t    sint;
     uintmax_t   uint;
@@ -350,8 +352,12 @@ char    *ft_printf_itoa_base(t_placehold *p, va_list a_list)
     }
     else
         uint = cast_uintmax(va_arg(a_list, uintmax_t), p);
-	if (uint == 0 && !ft_strchr("oO", p->type))
+	if (uint == 0 && (!ft_strchr("oO", p->type) || *(f->e) == 'p'))
+	{
 		p->hash = NULL;
+		if (*(f->e) == 'p')
+		    return (ft_strdup("(nil)"));
+	}
     else if (uint > 0)
         p->precision = max(ft_uintmax_len(uint, p->base), p->precision);
     return (ft_uitoa_base(uint, p->base, p->uppercase, p->precision));
@@ -422,7 +428,7 @@ char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
     return (s);
 }
 
-unsigned int    print_eval(t_placehold *p, va_list a_list)
+unsigned int    print_eval(t_placehold *p, t_format *f, va_list a_list)
 {
     char            *str;
     size_t          slen;
@@ -430,11 +436,13 @@ unsigned int    print_eval(t_placehold *p, va_list a_list)
 
 	count = 0;
     if (ft_strchr("dDioOuUxX", p->type))
-        str = ft_printf_itoa_base(p, a_list);
+        str = ft_printf_itoa_base(p, f, a_list);
     else if (ft_strchr("cC", p->type))
         str = ft_printf_ctos(p, a_list);
     else if (ft_strchr("sS", p->type))
         str = ft_printf_str(p, p->precision, a_list);
+    else if (p->type == 'p')
+        str = ft_printf_itoa_base(p, f, a_list);
     else if (p->type == '%')
 		str = ft_strdup("%");
 	else
@@ -487,7 +495,7 @@ int     ft_printf(const char *format, ...)
                 init_placehold(p);
                 f->e = f->s + 1;
                 eval_fields(p, f, a_list);
-                count += print_eval(p, a_list);
+                count += print_eval(p, f, a_list);
                 f->s = f->e;
             }
             else
@@ -529,5 +537,16 @@ int main()
        printf("ac_printf: %d %-*.13s %i %5.5%\n", 13, 18, "", -4078);
     ft_printf("ft_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078);
        printf("ac_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078); 
+       char *s, *p;
+       
+       s = "hello man";
+       p = NULL;
+    printf("ret: %d\n", ft_printf("{%10d}", 42));
+       printf("ret: %d\n", printf("{%10d}", 42));
+    ft_printf("pointer: %p\n", s);
+    printf("pointer: %p\n", s);
+    ft_printf("pointer: %p\n", p);
+    printf("pointer: %p\n", p);
     return (0);
-}*/
+}
+*/

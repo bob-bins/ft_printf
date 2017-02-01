@@ -243,6 +243,8 @@ uintmax_t   cast_uintmax(uintmax_t num, t_placehold *p)
         else if (!ft_strcmp(p->length, "z"))
             return ((size_t)num);
     }
+	else if (p->type == 'p')
+		return (num);
     return ((unsigned int)num);
 }
 
@@ -290,7 +292,7 @@ char	*ft_uitoa_base(uintmax_t value, unsigned short base, unsigned short upperca
 ** Casts integer appropriately, stores its sign in p, then prints out the number as unsigned with p->sign in front
 */
 
-char    *ft_printf_itoa_base(t_placehold *p, t_format *f, va_list a_list)
+char    *ft_printf_itoa_base(t_placehold *p, va_list a_list)
 {
     intmax_t    sint;
     uintmax_t   uint;
@@ -405,7 +407,7 @@ char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
     return (s);
 }
 
-unsigned int    print_eval(t_placehold *p, t_format *f, va_list a_list)
+unsigned int    print_eval(t_placehold *p, va_list a_list)
 {
     char            *str;
     size_t          slen;
@@ -413,13 +415,13 @@ unsigned int    print_eval(t_placehold *p, t_format *f, va_list a_list)
 
 	count = 0;
     if (ft_strchr("dDioOuUxX", p->type))
-        str = ft_printf_itoa_base(p, f, a_list);
+        str = ft_printf_itoa_base(p, a_list);
     else if (ft_strchr("cC", p->type))
         str = ft_printf_ctos(p, a_list);
     else if (ft_strchr("sS", p->type))
         str = ft_printf_str(p, p->precision, a_list);
     else if (p->type == 'p')
-        str = ft_printf_itoa_base(p, f, a_list);
+        str = ft_printf_itoa_base(p, a_list);
     else if (p->type == '%')
 		str = ft_strdup("%");
 	else
@@ -461,6 +463,7 @@ int     ft_printf(const char *format, ...)
     count = 0;
     if (format)
     {
+		p = NULL;
         f = malloc(sizeof(*f));
         f->s = ft_strdup(format);
         va_start(a_list, format);
@@ -472,7 +475,7 @@ int     ft_printf(const char *format, ...)
                 init_placehold(p);
                 f->e = f->s + 1;
                 eval_fields(p, f, a_list);
-                count += print_eval(p, f, a_list);
+                count += print_eval(p, a_list);
                 f->s = f->e;
             }
             else
@@ -481,6 +484,10 @@ int     ft_printf(const char *format, ...)
                 f->s++;
         }
         va_end(a_list);
+		if (p)
+			free(p);
+		if (f)
+			free(f);
     }
     return (count);
 }

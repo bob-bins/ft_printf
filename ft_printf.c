@@ -484,11 +484,11 @@ int     ft_printf(const char *format, ...)
     }
     return (count);
 }
-
+/*
 int main()
 {
     setlocale(LC_ALL, "");
-   /* ft_printf("ft_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
+    ft_printf("ft_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
        printf("ac_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
     ft_printf("ft_printf: %d %-#*lx %i %%\n", 13, 18, 3049600000, -4078);
        printf("ac_printf: %d %-#*lx %i %%\n", 13, 18, 3049600000, -4078);
@@ -514,7 +514,7 @@ int main()
        printf("ac_printf: %d %-*.13s %i %5.5%\n", 13, 18, "", -4078);
     ft_printf("ft_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078);
        printf("ac_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078); 
-      */ char *s, *p;
+       char *s, *p;
        
        //s = "hello man";
        //p = NULL;
@@ -523,4 +523,4 @@ int main()
     
 
     return (0);
-}
+}*/

@@ -59,35 +59,10 @@ void    init_placehold(t_placehold *p)
     p->precision = -1;
     p->length = NULL;
     p->type = 0;
-    p->base = 0;
+    p->base = 10;
     p->signed_num = 0;
     p->uppercase = 0;
 }
-
-/*int     printf_replace(t_format *f, va_list a_list)
-{
-    char    *eval;
-    char    *temp;
-    
-    //first eval the str in between m and e
-    if (eval = format_pf_string(f, a_list))
-    {
-        //then malloc enough space for strlen(*s) - (e - m) + evaled + 1
-        if (temp = malloc(sizeof(*temp) * (ft_strlen(f->s - (f->e - f->m) + ft_strlen(eval) + 1)))
-        {
-            //then strcopy s until m, eval, and e until null term
-            temp = ft_strncat(temp, f->s, f->m - f->s);
-            temp = ft_strcat(temp, eval);
-            temp = ft_strcat(temp, f->e);
-            f->m = f->e + 1;
-            free(f->s);
-            f->s = temp;
-            //^^ "return" m as e + 1 and s as start of string always.
-            return (0);
-        }
-    }
-    return (1);
-}*/
 
 void    set_hash(t_placehold *p, t_format *f)
 {
@@ -112,15 +87,12 @@ void     set_type_field(t_placehold *p, t_format *f)
 {
     if (ft_strchr("%sSpdDioOuUxXcC", *(f->e)))
     {
-        if (ft_strchr("dDiuU", *(f->e)))
-            p->base = 10;
-        else if (ft_strchr("oO", *(f->e)))
+        if (ft_strchr("oO", *(f->e)))
             p->base = 8;
         else if (ft_strchr("pxX", *(f->e)))
         {
             p->base = 16;
-            if (*(f->e) == 'X')
-                p->uppercase = 1;
+            p->uppercase = (*(f->e) == 'X' ? 1 : p->uppercase);
         }
         if (ft_strchr("DOUCS", *(f->e)))
         {
@@ -128,31 +100,16 @@ void     set_type_field(t_placehold *p, t_format *f)
                 free(p->length);
             p->length = ft_strdup("l");
         }
-        if (ft_strchr("dDi", *(f->e)))
-            p->signed_num = 1;
-		p->precision = ft_strchr("%", *(f->e)) ? 1 : p->precision;
-        p->padding = ft_strchr("cCsS", *(f->e)) ? ' ' : p->padding;
+        p->signed_num = (ft_strchr("dDi", *(f->e)) ? 1 : p->signed_num);
+		p->precision = (ft_strchr("%", *(f->e)) ? 1 : p->precision);
+        p->padding = (ft_strchr("cCsS", *(f->e)) ? ' ' : p->padding);
         p->sign = (!ft_strchr("dDi", *(f->e)) ? 0 : p->sign);
         set_hash(p, f);
         p->type = *(f->e);
     }
-	else
-		p->type = '%'; //crap delete this later
+    else
+        p->type = '%';
 }
-
-/*void     set_parameter_field(t_placehold *p, t_format *f)
-{
-    char *s;
-    
-    s = f->e;
-    while (*s != '$' && !ft_strchr("sSpdDioOuUxXcC", *s) && *s)
-        s++;
-    if (*s == '$')
-    {
-        p->parameter = ft_atoi(f->e);
-        f->e = s + 1;
-    }
-}*/
 
 void     set_flag_field(t_placehold *p, t_format *f)
 {
@@ -228,7 +185,6 @@ void     set_length_field(t_placehold *p, t_format *f)
 
 void     eval_fields(t_placehold *p, t_format *f, va_list a_list)
 {
-    //set_parameter_field(p, f);
     set_flag_field(p, f);
     set_width_field(p, f, a_list);
     set_precision_field(p, f, a_list);
@@ -265,7 +221,7 @@ intmax_t    cast_intmax(intmax_t num, t_placehold *p)
         else if (!ft_strcmp(p->length, "j"))
             return (num);
         else if (!ft_strcmp(p->length, "z"))
-            return (cast_signed_size_t(num)); //RETURN "SIGNED" size_t instead. check sizeof to see if it's equal to another type. then cast as that type
+            return (cast_signed_size_t(num));
     }
     return ((int)num);
 }
@@ -368,7 +324,7 @@ char        *ft_wctos(wchar_t c)
     char    *s;
     char    *e;
     
-    s = malloc(sizeof(*s) * 5);
+    s = ft_memalloc(sizeof(*s) * 5);
     e = s;
 	if (c <= 0x7F)
 		*e++ = c;
@@ -390,7 +346,6 @@ char        *ft_wctos(wchar_t c)
 		*e++ = ((c >> 6) & 0x3F) + 0x80;
 		*e++ = (c & 0x3F) + 0x80;
 	}
-	*e = 0;
 	return (s);
 }
 
@@ -405,6 +360,32 @@ char    *ft_printf_ctos(t_placehold *p, va_list a_list)
     return (ft_wctos(c));
 }
 
+char    *ft_wstrndup(wchar_t *w, size_t n)
+{
+    char    *s;
+    
+    s = ft_memalloc(sizeof(*s) * (n + 1));
+    if (s && w)
+        while (*w)
+            s = ft_strcat(s, ft_wctos(*w++));
+    else
+        s = NULL;
+    return (s);
+}
+
+char    *ft_wstrdup(wchar_t *w)
+{
+    wchar_t *t;
+    size_t  len;
+    
+    len = 0;
+    t = w;
+	if (t)
+    	while (*t++)
+			len++;
+    return (ft_wstrndup(w, len));
+}
+
 char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
 {
     char *s;
@@ -412,9 +393,9 @@ char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
     if (p->length != NULL && !ft_strcmp(p->length, "l"))
     {
         if (p->precision >= 0)
-            s = ft_strndup((char*)va_arg(a_list, wchar_t*), n); //FIX THIS ONE so that partial unicode characters aren't included!!!
+            s = ft_wstrndup(va_arg(a_list, wchar_t*), n);
         else
-            s = ft_strdup((char*)va_arg(a_list, wchar_t*)); //FIX THIS TOO IN CASE......
+            s = ft_wstrdup(va_arg(a_list, wchar_t*));
     }
     else
     {
@@ -432,7 +413,7 @@ unsigned int    print_eval(t_placehold *p, t_format *f, va_list a_list)
 {
     char            *str;
     size_t          slen;
-    int    count;
+    int             count;
 
 	count = 0;
     if (ft_strchr("dDioOuUxX", p->type))
@@ -539,14 +520,12 @@ int main()
        printf("ac_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078); 
        char *s, *p;
        
-       s = "hello man";
-       p = NULL;
-    printf("ret: %d\n", ft_printf("{%10d}", 42));
-       printf("ret: %d\n", printf("{%10d}", 42));
-    ft_printf("pointer: %p\n", s);
-    printf("pointer: %p\n", s);
-    ft_printf("pointer: %p\n", p);
-    printf("pointer: %p\n", p);
+       //s = "hello man";
+       //p = NULL;
+    printf("ret: %d\n", ft_printf("{%.25ls}\n", L"我是一只猫。"));
+       printf("ret: %d\n", printf("{%.25ls}\n", L"我是一只猫。"));
+    
+    
+
     return (0);
-}
-*/
+}*/

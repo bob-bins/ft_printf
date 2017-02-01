@@ -308,12 +308,8 @@ char    *ft_printf_itoa_base(t_placehold *p, t_format *f, va_list a_list)
     }
     else
         uint = cast_uintmax(va_arg(a_list, uintmax_t), p);
-	if (uint == 0 && (!ft_strchr("oO", p->type) || *(f->e) == 'p'))
-	{
+	if (uint == 0 && !ft_strchr("oOp", p->type))
 		p->hash = NULL;
-		if (*(f->e) == 'p')
-		    return (ft_strdup("(nil)"));
-	}
     else if (uint > 0)
         p->precision = max(ft_uintmax_len(uint, p->base), p->precision);
     return (ft_uitoa_base(uint, p->base, p->uppercase, p->precision));
@@ -488,11 +484,11 @@ int     ft_printf(const char *format, ...)
     }
     return (count);
 }
-/*
+
 int main()
 {
     setlocale(LC_ALL, "");
-    ft_printf("ft_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
+   /* ft_printf("ft_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
        printf("ac_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
     ft_printf("ft_printf: %d %-#*lx %i %%\n", 13, 18, 3049600000, -4078);
        printf("ac_printf: %d %-#*lx %i %%\n", 13, 18, 3049600000, -4078);
@@ -518,14 +514,13 @@ int main()
        printf("ac_printf: %d %-*.13s %i %5.5%\n", 13, 18, "", -4078);
     ft_printf("ft_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078);
        printf("ac_printf: %d %*.13s %i %5.5%\n", 13, 18, NULL, -4078); 
-       char *s, *p;
+      */ char *s, *p;
        
        //s = "hello man";
        //p = NULL;
-    printf("ret: %d\n", ft_printf("{%.25ls}\n", L"我是一只猫。"));
-       printf("ret: %d\n", printf("{%.25ls}\n", L"我是一只猫。"));
-    
+        printf("ret: %d\n", ft_printf("{%.25p}\n", p));
+		       printf("ret: %d\n", printf("{%.25p}\n", p));
     
 
     return (0);
-}*/
+}

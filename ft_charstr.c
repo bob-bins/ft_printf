@@ -18,24 +18,26 @@ char	*ft_wctos(wchar_t c)
 	char	*e;
 
 	s = ft_memalloc(sizeof(*s) * 5);
-	e = s;
-	if (c <= 0x7F)
+	if ((e = s) && c <= 0x7F)
 		*e++ = c;
 	else if (c <= 0x7FF)
+	{
 		*e++ = (c >> 6) + 0xC0;
+		*e++ = (c & 0x3F) + 0x80;
+	}
 	else if (c <= 0xFFFF)
 	{
 		*e++ = (c >> 12) + 0xE0;
 		*e++ = ((c >> 6) & 0x3F) + 0x80;
+		*e++ = (c & 0x3F) + 0x80;
 	}
 	else if (c <= 0x10FFFF)
 	{
 		*e++ = (c >> 18) + 0xF0;
 		*e++ = ((c >> 12) & 0x3F) + 0x80;
 		*e++ = ((c >> 6) & 0x3F) + 0x80;
-	}
-	if (c <= 0x7FF)
 		*e++ = (c & 0x3F) + 0x80;
+	}
 	return (s);
 }
 

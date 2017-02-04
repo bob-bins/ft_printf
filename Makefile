@@ -12,7 +12,7 @@
 
 NAME = libftprintf.a
 INCLUDE = includes/ft_printf.h
-SRC = ft_printf.c libft/ft_*.c
+SRC = ft_*.c libft/ft_*.c
 OBJ = ft_*.o
 
 all: $(NAME)

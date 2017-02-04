@@ -12,24 +12,6 @@
 
 #include "libft.h"
 
-static void	ft_strrev(char *s)
-{
-	char *e;
-	char temp;
-
-	e = s;
-	while (*e)
-		e++;
-	if (!*e)
-		e--;
-	while (s <= e)
-	{
-		temp = *s;
-		*s++ = *e;
-		*e-- = temp;
-	}
-}
-
 char		*ft_itoa_base(int value, int base)
 {
 	char	*num;

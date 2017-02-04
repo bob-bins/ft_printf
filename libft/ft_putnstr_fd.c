@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
+/*   ft_putnstr_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/28 19:30:53 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:35:27 by mchen            ###   ########.fr       */
+/*   Created: 2017/02/03 22:33:23 by mchen             #+#    #+#             */
+/*   Updated: 2017/02/03 22:42:27 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_wstrlen(const char *s)
+int	ft_putnstr_fd(int fd, char *s, int n)
 {
-	size_t			n;
-	unsigned char	c;
+	int count;
 
-	n = 0;
-	if (s)
-		while ((c = (unsigned char)*s++))
-			if (c >> 7 == 0 || c >> 5 == 0x6 || c >> 4 == 0xE || c >> 3 == 0x1E)
-				n++;
-	return (n);
+	count = 0;
+	if (n > 0)
+	{
+		while (*s && n-- > 0)
+		{
+			ft_putchar_fd(*s++, fd);
+			count++;
+		}
+	}
+	return (count);
 }

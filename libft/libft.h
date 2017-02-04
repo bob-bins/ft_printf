@@ -96,4 +96,9 @@ int					ft_sqrt(int nb);
 char				*ft_chrrepl(char *s, char c, char r);
 int					ft_sqrt_ceil(unsigned int nb);
 char				*ft_strndup(const char *s1, size_t len);
+void				ft_strrev(char *s);
+int					ft_putnstr_fd(int fd, char *s, int n);
+int					ft_putnchar_fd(int fd, char c, int n);
+int					ft_putnwstr_fd(int fd, wchar_t *s, int n);
+
 #endif

@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/28 19:30:53 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:35:27 by mchen            ###   ########.fr       */
+/*   Created: 2017/02/03 22:36:53 by mchen             #+#    #+#             */
+/*   Updated: 2017/02/03 22:37:15 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_wstrlen(const char *s)
+void	ft_strrev(char *s)
 {
-	size_t			n;
-	unsigned char	c;
+	char *e;
+	char t;
 
-	n = 0;
-	if (s)
-		while ((c = (unsigned char)*s++))
-			if (c >> 7 == 0 || c >> 5 == 0x6 || c >> 4 == 0xE || c >> 3 == 0x1E)
-				n++;
-	return (n);
+	if (!s)
+		return ;
+	e = s;
+	while (*e)
+		e++;
+	e--;
+	while (s < e)
+	{
+		t = *s;
+		*s++ = *e;
+		*e-- = t;
+	}
 }

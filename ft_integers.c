@@ -12,6 +12,29 @@
 
 #include "includes/ft_printf.h"
 
+char		*ft_uitoa_base(uintmax_t value, unsigned short base,
+							unsigned short uppercase, int digits)
+{
+	char	*ret;
+	char	*dig;
+	int		i;
+
+	dig = "0123456789abcdef0123456789ABCDEF";
+	dig += 16 * uppercase;
+	if ((ret = malloc(sizeof(*ret) * (digits + 1))))
+	{
+		i = 0;
+		while (value != 0 || (i == 0 && digits != 0) || i < digits)
+		{
+			ret[i++] = dig[value % base];
+			value /= base;
+		}
+		ret[i] = 0;
+		ft_strrev(ret);
+	}
+	return (ret);
+}
+
 intmax_t	cast_signed_size_t(intmax_t num)
 {
 	if (sizeof(size_t) == sizeof(short))

@@ -12,6 +12,71 @@
 
 #include "includes/ft_printf.h"
 
+char	*ft_wctos(wchar_t c)
+{
+	char	*s;
+	char	*e;
+
+	s = ft_memalloc(sizeof(*s) * 5);
+	e = s;
+	if (c <= 0x7F)
+		*e++ = c;
+	else if (c <= 0x7FF)
+		*e++ = (c >> 6) + 0xC0;
+	else if (c <= 0xFFFF)
+	{
+		*e++ = (c >> 12) + 0xE0;
+		*e++ = ((c >> 6) & 0x3F) + 0x80;
+	}
+	else if (c <= 0x10FFFF)
+	{
+		*e++ = (c >> 18) + 0xF0;
+		*e++ = ((c >> 12) & 0x3F) + 0x80;
+		*e++ = ((c >> 6) & 0x3F) + 0x80;
+	}
+	if (c <= 0x7FF)
+		*e++ = (c & 0x3F) + 0x80;
+	return (s);
+}
+
+char	*ft_wtoc_strndup(wchar_t *w, size_t n)
+{
+	char	*s;
+	char	*t;
+	int		len;
+
+	if (w && (s = ft_memalloc(sizeof(*s) * (n + 1))))
+	{
+		len = n;
+		while (*w)
+		{
+			t = ft_wctos(*w++);
+			len -= ft_strlen(t);
+			if (len < 0)
+				break ;
+			s = ft_strcat(s, t);
+		}
+	}
+	else
+		s = NULL;
+	return (s);
+}
+
+char	*ft_wtoc_strdup(wchar_t *w)
+{
+	wchar_t	*t;
+	size_t	len;
+	short	size;
+
+	len = 0;
+	size = sizeof(wchar_t) / sizeof(char);
+	t = w;
+	if (t)
+		while (*t++)
+			len += size;
+	return (ft_wtoc_strndup(w, len));
+}
+
 char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 {
 	wchar_t c;

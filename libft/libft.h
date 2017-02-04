@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <wchar.h>
+# include <stdint.h>
 
 typedef struct		s_list
 {
@@ -100,5 +101,6 @@ void				ft_strrev(char *s);
 int					ft_putnstr_fd(int fd, char *s, int n);
 int					ft_putnchar_fd(int fd, char c, int n);
 int					ft_putnwstr_fd(int fd, wchar_t *s, int n);
+unsigned short		ft_uintmax_len(uintmax_t num, unsigned short base);
 
 #endif

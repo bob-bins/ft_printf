@@ -6,7 +6,7 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 22:26:27 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:30:26 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/03 23:28:24 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*ft_wtoc_strndup(wchar_t *w, size_t n)
 			if (len < 0)
 				break ;
 			s = ft_strcat(s, t);
+			if (t)
+				free(t);
 		}
 	}
 	else

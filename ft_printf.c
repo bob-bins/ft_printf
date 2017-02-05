@@ -25,9 +25,10 @@ int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 		e = format;
 		while (*format)
 		{
-			e = format + 1;
-			if (*format == '%' && eval_fields(p, &e, a_list))
+			if (*format == '%')
 			{
+				e = format + 1;
+				eval_fields(p, &e, a_list);
 				count += print_eval(fd, p, a_list, count);
 				format = e;
 			}

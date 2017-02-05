@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-int		set_type_field(t_placehold *p, const char *e)
+void	set_type_field(t_placehold *p, const char *e)
 {
 	if (ft_strchr("%sSpdDioOuUxXcCbn", *e))
 	{
@@ -31,11 +31,8 @@ int		set_type_field(t_placehold *p, const char *e)
 		p->padding = (ft_strchr("cCsS", *e) ? ' ' : p->padding);
 		p->sign = (!ft_strchr("dDi", *e) ? 0 : p->sign);
 		set_hash(p, e);
-		p->type = *e;
-		return (1);
 	}
-	else
-		return (0);
+	p->type = *e;
 }
 
 void	set_flag_field(t_placehold *p, const char **e)

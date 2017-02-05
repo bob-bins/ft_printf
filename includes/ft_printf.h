@@ -40,11 +40,11 @@ int					ft_vfdprintf(int fd, const char *format, va_list a_list);
 int					ft_fdprintf(int fd, const char *format, ...);
 void				set_hash(t_placehold *p, const char *e);
 void				init_placehold(t_placehold *p);
-int					eval_fields(t_placehold *p, const char **e, va_list a_list);
+void				eval_fields(t_placehold *p, const char **e, va_list a_list);
 size_t				ft_puteval(int fd, t_placehold *p, char *str, size_t slen);
 size_t				print_eval(int fd, t_placehold *p, va_list a_list,
 						size_t cnt);
-int					set_type_field(t_placehold *p, const char *e);
+void				set_type_field(t_placehold *p, const char *e);
 void				set_flag_field(t_placehold *p, const char **e);
 void				set_width_field(t_placehold *p, const char **e,
 						va_list a_list);

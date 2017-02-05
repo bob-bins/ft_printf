@@ -46,14 +46,14 @@ void	init_placehold(t_placehold *p)
 	p->uppercase = 0;
 }
 
-int		eval_fields(t_placehold *p, const char **e, va_list a_list)
+void	eval_fields(t_placehold *p, const char **e, va_list a_list)
 {
 	init_placehold(p);
 	set_flag_field(p, e);
 	set_width_field(p, e, a_list);
 	set_precision_field(p, e, a_list);
 	set_length_field(p, e);
-	return (set_type_field(p, *e));
+	set_type_field(p, *e);
 }
 
 size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)
@@ -90,22 +90,22 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 	size_t	count;
 
 	str = NULL;
-	if (ft_strchr("dDioOuUxXb", p->type))
+	if (ft_strchr("dDioOuUxXbp", p->type))
 		str = ft_printf_itoa_base(p, a_list);
 	else if (ft_strchr("cC", p->type))
 		str = ft_printf_ctos(p, a_list);
 	else if (ft_strchr("sS", p->type))
 		str = ft_printf_str(p, p->precision, a_list);
-	else if (p->type == 'p')
-		str = ft_printf_itoa_base(p, a_list);
 	else if (p->type == '%')
 		str = ft_strdup("%");
 	else if (p->type == 'n')
 		*va_arg(a_list, int*) = cnt;
-	if (ft_strchr("n", p->type))
+	else if (str = ft_memalloc(sizeof(*str) * 2))
+		*str = p->type;
+	if (p->type == 'n')
 		return (0);
 	slen = (ft_strchr("cC", p->type) ? 1 : ft_strlen(str)) +
-			ft_strlen(p->hash) + (p->sign != 0 ? 1 : 0);
+		ft_strlen(p->hash) + (p->sign != 0 ? 1 : 0);
 	count = ft_puteval(fd, p, str, slen);
 	if (str)
 		free(str);

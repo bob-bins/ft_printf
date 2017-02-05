@@ -62,3 +62,15 @@ int	ft_printf(const char *format, ...)
 	va_end(a_list);
 	return (count);
 }
+
+
+/*#include <stdio.h>
+#include <limits.h>
+int main()
+{
+	int f;
+	int p;
+	printf("::%d\n", ft_printf("%#o", INT_MAX));
+	printf("::%d\n", printf("%#o", INT_MAX));
+	return (0);
+}*/

@@ -64,17 +64,17 @@ size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)
 	if (p->padding == '0')
 	{
 		count += ft_putstr_fd(p->hash, fd);
-		count += ft_putchar_fd(p->sign, fd);
+		count += (p->sign ? ft_putchar_fd(p->sign, fd) : 0);
 	}
 	if (!p->leftalign)
 		count += ft_putnchar_fd(fd, p->padding, p->width - slen);
 	if (p->padding == ' ')
 	{
 		count += ft_putstr_fd(p->hash, fd);
-		count += ft_putchar_fd(p->sign, fd);
+		count += (p->sign ? ft_putchar_fd(p->sign, fd) : 0);
 	}
 	count += ft_putnstr_fd(fd, str, p->precision == -1 ? slen : p->precision);
-	count += (ft_strchr("cC", p->type) && ft_strlen(str) == 0) ? 1 : 0;
+	count += (ft_strchr("cC", p->type) && ft_strlen(str) == 0) ? ft_putchar_fd(*str, fd) : 0;
 	if (p->leftalign)
 		count += ft_putnchar_fd(fd, p->padding, p->width - slen);
 	if (p->length)

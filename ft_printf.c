@@ -29,7 +29,7 @@ int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 			{
 				e = format + 1;
 				eval_fields(p, &e, a_list);
-				count += print_eval(fd, p, a_list);
+				count += print_eval(fd, p, a_list, count);
 				format = e;
 			}
 			else
@@ -61,4 +61,16 @@ int	ft_printf(const char *format, ...)
 	count = ft_vfdprintf(1, format, a_list);
 	va_end(a_list);
 	return (count);
+}
+
+#include <stdio.h>
+#include <limits.h>
+int main()
+{
+	int f;
+	int p;
+	printf("%d\n", ft_printf("%zu, %n", 0, &f));
+	printf("%d\n", printf("%zu, %n", 0, &p));
+	printf("%i, %i", f, p);
+	return (0);
 }

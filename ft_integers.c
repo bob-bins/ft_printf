@@ -13,7 +13,7 @@
 #include "includes/ft_printf.h"
 
 char		*ft_uitoa_base(uintmax_t value, unsigned short base,
-							unsigned short uppercase, int digits)
+				unsigned short uppercase, int digits)
 {
 	char	*ret;
 	char	*dig;

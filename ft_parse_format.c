@@ -14,7 +14,7 @@
 
 void	set_type_field(t_placehold *p, const char *e)
 {
-	if (ft_strchr("%sSpdDioOuUxXcCb", *e))
+	if (ft_strchr("%sSpdDioOuUxXcCbn", *e))
 	{
 		p->base = (ft_strchr("b", *e) ? 2 : p->base);
 		p->base = (ft_strchr("oO", *e) ? 8 : p->base);
@@ -34,7 +34,7 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->type = *e;
 	}
 	else
-		p->type = '%';
+		p->type = 'z';
 }
 
 void	set_flag_field(t_placehold *p, const char **e)

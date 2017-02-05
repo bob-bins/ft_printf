@@ -46,14 +46,14 @@ void	init_placehold(t_placehold *p)
 	p->uppercase = 0;
 }
 
-void	eval_fields(t_placehold *p, const char **e, va_list a_list)
+int		eval_fields(t_placehold *p, const char **e, va_list a_list)
 {
 	init_placehold(p);
 	set_flag_field(p, e);
 	set_width_field(p, e, a_list);
 	set_precision_field(p, e, a_list);
 	set_length_field(p, e);
-	set_type_field(p, *e);
+	return (set_type_field(p, *e));
 }
 
 size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)

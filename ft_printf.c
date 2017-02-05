@@ -25,10 +25,9 @@ int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 		e = format;
 		while (*format)
 		{
-			if (*format == '%')
+			e = format + 1;
+			if (*format == '%' && eval_fields(p, &e, a_list))
 			{
-				e = format + 1;
-				eval_fields(p, &e, a_list);
 				count += print_eval(fd, p, a_list, count);
 				format = e;
 			}
@@ -63,14 +62,14 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-
-/*#include <stdio.h>
+/*
+#include <stdio.h>
 #include <limits.h>
 int main()
 {
 	int f;
 	int p;
-	printf("::%d\n", ft_printf("%#o", INT_MAX));
-	printf("::%d\n", printf("%#o", INT_MAX));
+	printf("::%d\n", ft_printf("{%10R}"));
+	printf("::%d\n", printf("{%10R}"));
 	return (0);
 }*/

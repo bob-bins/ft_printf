@@ -31,8 +31,8 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->padding = (ft_strchr("cCsS", *e) ? ' ' : p->padding);
 		p->sign = (!ft_strchr("dDi", *e) ? 0 : p->sign);
 		set_hash(p, e);
-		p->type = *e;
 	}
+	p->type = *e;
 }
 
 void	set_flag_field(t_placehold *p, const char **e)

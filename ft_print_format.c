@@ -100,7 +100,7 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 		str = ft_strdup("%");
 	else if (p->type && p->type == 'n')
 		*va_arg(a_list, int*) = cnt;
-	else if (str = ft_memalloc(sizeof(*str) * 2))
+	else if ((str = ft_memalloc(sizeof(*str) * 2)))
 		*str = p->type;
 	if (p->type == 'n')
 		return (0);

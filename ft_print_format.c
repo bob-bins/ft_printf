@@ -73,7 +73,8 @@ size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)
 		count += ft_putstr_fd(p->hash, fd);
 		count += (p->sign ? ft_putchar_fd(p->sign, fd) : 0);
 	}
-	count += ft_putnstr_fd(fd, str, p->precision == -1 ? slen : p->precision);
+	count += ft_putnstr_fd(fd, str, p->precision == -1 ?
+		MAX(slen, ft_strlen(str)) : p->precision);
 	count += (p->type && (ft_strchr("cC", p->type) && ft_strlen(str) == 0) ?
 		ft_putchar_fd(*str, fd) : 0);
 	if (p->leftalign)

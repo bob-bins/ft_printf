@@ -63,14 +63,15 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-/*
+
+#include <locale.h>
 #include <stdio.h>
 #include <limits.h>
 int main()
 {
-	int f;
-	int p;
-	printf("::%d\n", ft_printf("{%03c}", 0));
-	printf("::%d\n", printf("{%03c}", 0));
+	setlocale(LC_ALL, "");
+	wchar_t w = 8805;
+	printf("::%d\n", ft_printf("%C", 8805));
+	printf("::%d\n", printf("%C", L'Á±≥'));
 	return (0);
-}*/
+}

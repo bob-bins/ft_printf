@@ -14,16 +14,14 @@
 
 int	ft_putnstr_fd(int fd, char *s, int n)
 {
-	int count;
+	int len;
 
-	count = 0;
-	if (n > 0)
+	if (s)
 	{
-		while (*s && n-- > 0)
-		{
-			ft_putchar_fd(*s++, fd);
-			count++;
-		}
+		len = ft_strlen(s);
+		if (n < len)
+			len = n;
+		write(1, s, len);
 	}
-	return (count);
+	return (len);
 }

@@ -6,7 +6,7 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 22:27:10 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:46:01 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/05 16:26:30 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	set_type_field(t_placehold *p, const char *e)
 		}
 		p->signed_num = (ft_strchr("dDi", *e) ? 1 : p->signed_num);
 		p->precision = (ft_strchr("%", *e) ? 1 : p->precision);
-		//p->padding = (ft_strchr("cCsS", *e) ? ' ' : p->padding);
 		p->sign = (!ft_strchr("dDi", *e) ? 0 : p->sign);
 		set_hash(p, e);
 	}

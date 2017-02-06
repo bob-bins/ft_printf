@@ -63,14 +63,14 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-/*
+
 #include <stdio.h>
 #include <limits.h>
 int main()
 {
 	int f;
 	int p;
-	printf("::%d\n", ft_printf("{%10R}"));
-	printf("::%d\n", printf("{%10R}"));
+	printf("::%d\n", ft_printf("%"));
+	printf("::%d\n", printf("%"));
 	return (0);
-}*/
+}

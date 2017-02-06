@@ -70,7 +70,7 @@ int main()
 {
 	int f;
 	int p;
-	printf("::%d\n", ft_printf("%"));
-	printf("::%d\n", printf("%"));
+	printf("::%d\n", ft_printf("{%03c}", 0));
+	printf("::%d\n", printf("{%03c}", 0));
 	return (0);
 }*/

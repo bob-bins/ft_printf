@@ -6,7 +6,7 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 22:27:23 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:42:05 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/05 17:37:58 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-
+/*
 #include <locale.h>
 #include <stdio.h>
 #include <limits.h>
@@ -74,4 +74,4 @@ int main()
 	printf("::%d\n", ft_printf("%C", 8805));
 	printf("::%d\n", printf("%C", L'Á±≥'));
 	return (0);
-}
+}*/

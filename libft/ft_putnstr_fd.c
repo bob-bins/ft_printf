@@ -6,7 +6,7 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 22:33:23 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:42:27 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/05 17:39:12 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	ft_putnstr_fd(int fd, char *s, int n)
 {
 	int len;
 
+	len = ft_strlen(s);
 	if (s)
 	{
-		len = ft_strlen(s);
 		if (n < len)
 			len = n;
-		write(1, s, len);
+		write(fd, s, len);
 	}
 	return (len);
 }

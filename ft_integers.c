@@ -24,7 +24,7 @@ char		*ft_uitoa_base(uintmax_t value, unsigned short base,
 	if ((ret = malloc(sizeof(*ret) * (digits + 1))))
 	{
 		i = 0;
-		while (value != 0 || (i == 0 && (digits != 0 || base == 8)) || i < digits)
+		while (value != 0 || (i == 0 && digits != 0) || i < digits)
 		{
 			ret[i++] = dig[value % base];
 			value /= base;

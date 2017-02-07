@@ -14,7 +14,7 @@
 
 void	set_type_field(t_placehold *p, const char *e)
 {
-	if (*e && ft_strchr("%sSpdDioOuUxXcCbn", *e))
+	if (*e && ft_strchr("sSpdDioOuUxXcCbn", *e))
 	{
 		p->base = (ft_strchr("b", *e) ? 2 : p->base);
 		p->base = (ft_strchr("oO", *e) ? 8 : p->base);
@@ -29,6 +29,8 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->signed_num = (ft_strchr("dDi", *e) ? 1 : p->signed_num);
 		set_hash(p, e);
 	}
+	else
+		p->precision = 1;
 	p->sign = (!ft_strchr("dDi", *e) ? 0 : p->sign);
 	p->padding = (ft_strchr("pdDioOuUxXbn", *e) && p->precision >= 0 &&
 		p->leftalign == 0) ? ' ' : p->padding;

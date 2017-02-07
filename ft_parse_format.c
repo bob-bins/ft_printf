@@ -27,7 +27,6 @@ void	set_type_field(t_placehold *p, const char *e)
 			p->length = ft_strdup("l");
 		}
 		p->signed_num = (ft_strchr("dDi", *e) ? 1 : p->signed_num);
-		//p->precision = (ft_strchr("%", *e) ? 1 : p->precision);
 		set_hash(p, e);
 	}
 	p->sign = (!ft_strchr("dDi", *e) ? 0 : p->sign);

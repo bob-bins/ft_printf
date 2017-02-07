@@ -20,6 +20,7 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->base = (ft_strchr("oO", *e) ? 8 : p->base);
 		p->base = (ft_strchr("pxX", *e) ? 16 : p->base);
 		p->uppercase = (*e == 'X' ? 1 : p->uppercase);
+		p->padding = (!ft_strchr("cCsS", *e) && p->precision >= 0 && p->leftalign == 0) ? ' ' : p->padding;
 		if (ft_strchr("DOUCS", *e))
 		{
 			if (p->length)
@@ -97,7 +98,7 @@ void	set_precision_field(t_placehold *p, const char **e, va_list a_list)
 				(*e)++;
 			}
 		}
-		p->padding = ' ';
+		//p->padding = ' ';/////////////////////////////////
 	}
 }
 

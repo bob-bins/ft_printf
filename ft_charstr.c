@@ -12,6 +12,10 @@
 
 #include "includes/ft_printf.h"
 
+/*
+** Converts wide character to a char* using UTF-8 formatting
+*/
+
 char	*ft_wctos(wchar_t c)
 {
 	char	*s;
@@ -41,6 +45,11 @@ char	*ft_wctos(wchar_t c)
 	return (s);
 }
 
+/*
+** Converts each wide character in w to UTF-8 string and concatenates it to the
+** return string
+*/
+
 char	*ft_wtoc_strndup(wchar_t *w, size_t n)
 {
 	char	*s;
@@ -66,6 +75,10 @@ char	*ft_wtoc_strndup(wchar_t *w, size_t n)
 	return (s);
 }
 
+/*
+** Finds the num of bits of w, then calls ft_wtoc_strndup on that size
+*/
+
 char	*ft_wtoc_strdup(wchar_t *w)
 {
 	wchar_t	*t;
@@ -81,6 +94,10 @@ char	*ft_wtoc_strdup(wchar_t *w)
 	return (ft_wtoc_strndup(w, len));
 }
 
+/*
+** Handles %cC
+*/
+
 char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 {
 	wchar_t c;
@@ -91,6 +108,10 @@ char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 		c = (char)(unsigned char)va_arg(a_list, int);
 	return (ft_wctos(c));
 }
+
+/*
+** Handles %sS
+*/
 
 char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
 {

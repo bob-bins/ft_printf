@@ -6,7 +6,7 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 22:27:23 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/05 17:37:58 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/06 21:02:12 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,3 @@ int	ft_printf(const char *format, ...)
 	va_end(a_list);
 	return (count);
 }
-
-/*
-#include <locale.h>
-#include <stdio.h>
-#include <limits.h>
-int main()
-{
-	setlocale(LC_ALL, "");
-	wchar_t w = 8805;
-	printf("::%d\n", ft_printf("{%05s}", 0));
-	printf("::%d\n", printf("{%05s}", 0));
-	return (0);
-}*/

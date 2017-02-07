@@ -92,8 +92,8 @@ uintmax_t	cast_uintmax(uintmax_t num, t_placehold *p)
 }
 
 /*
-** Casts integer appropriately, stores its sign in p, then prints out the number
-** as unsigned with p->sign in front.
+** Handles %dDioOuUxXbp. Casts it appropriately, stores its sign in p,
+** then returns the unsigned number as string.
 */
 
 char		*ft_printf_itoa_base(t_placehold *p, va_list a_list)

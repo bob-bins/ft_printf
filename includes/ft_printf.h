@@ -14,9 +14,6 @@
 # define FT_PRINTF_H
 # include <stdlib.h>
 # include <stdarg.h>
-# include <unistd.h>
-# include <stdint.h>
-# include <wchar.h>
 # include "../libft/libft.h"
 # define MAX(a, b) (a > b ? a : b)
 
@@ -51,15 +48,14 @@ void				set_width_field(t_placehold *p, const char **e,
 void				set_precision_field(t_placehold *p, const char **e,
 						va_list a_list);
 void				set_length_field(t_placehold *p, const char **e);
+char				*ft_uitoa_base(uintmax_t value, unsigned short base,
+						unsigned short uppercase, int digits);
 intmax_t			cast_signed_size_t(intmax_t num);
 intmax_t			cast_intmax(intmax_t num, t_placehold *p);
 uintmax_t			cast_uintmax(uintmax_t num, t_placehold *p);
 char				*ft_printf_itoa_base(t_placehold *p, va_list a_list);
 char				*ft_printf_ctos(t_placehold *p, va_list a_list);
 char				*ft_printf_str(t_placehold *p, size_t n, va_list a_list);
-unsigned short		ft_uintmax_len(uintmax_t num, unsigned short base);
-char				*ft_uitoa_base(uintmax_t value, unsigned short base,
-						unsigned short uppercase, int digits);
 char				*ft_wctos(wchar_t c);
 char				*ft_wtoc_strndup(wchar_t *w, size_t n);
 char				*ft_wtoc_strdup(wchar_t *w);

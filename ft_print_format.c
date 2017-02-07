@@ -98,11 +98,11 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 	else if (p->type && ft_strchr("sS", p->type))
 		str = ft_printf_str(p, p->precision, a_list);
 	else if (p->type && p->type == '%')
-		(str = ft_strdup("%");
+		str = ft_strdup("%");
 	else if (p->type && p->type == 'n')
 		*va_arg(a_list, int*) = cnt;
 	else if ((str = ft_memalloc(sizeof(*str) * 2)))
-		*str = p->type
+		*str = p->type;
 	if (p->type == 'n')
 		return (0);
 	slen = (ft_strchr("cC", p->type) ? 1 : ft_strlen(str)) +

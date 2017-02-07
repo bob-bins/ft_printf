@@ -24,7 +24,7 @@ char		*ft_uitoa_base(uintmax_t value, unsigned short base,
 	if ((ret = malloc(sizeof(*ret) * (digits + 1))))
 	{
 		i = 0;
-		while (value != 0 || (i == 0 && digits != 0) || i < digits)
+		while (value != 0 || (i == 0 && (digits != 0 || base == 10)) || i < digits)
 		{
 			ret[i++] = dig[value % base];
 			value /= base;
@@ -114,8 +114,9 @@ char		*ft_printf_itoa_base(t_placehold *p, va_list a_list)
 	}
 	else
 		uint = cast_uintmax(va_arg(a_list, uintmax_t), p);
-	if ((uint == 0 && !ft_strchr("poO", p->type)) || (p->hash &&
-		ft_strchr("oO", p->type) && p->precision))
+	if (uint == 0 && (!ft_strchr("poO", p->type) || (p->hash &&
+		ft_strchr("oO", p->type) && p->precision)) || (p->hash &&
+		ft_strchr("oO", p->type) && p->precision) > 0)
 		p->hash = NULL;
 	else if (uint > 0)
 		p->precision = MAX(ft_uintmax_len(uint, p->base), p->precision);

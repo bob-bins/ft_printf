@@ -20,7 +20,6 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->base = (ft_strchr("oO", *e) ? 8 : p->base);
 		p->base = (ft_strchr("pxX", *e) ? 16 : p->base);
 		p->uppercase = (*e == 'X' ? 1 : p->uppercase);
-		p->padding = (ft_strchr("pdDioOuUxXbn", *e) && p->precision >= 0 && p->leftalign == 0) ? ' ' : p->padding;
 		if (ft_strchr("DOUCS", *e))
 		{
 			if (p->length)
@@ -32,6 +31,8 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->sign = (!ft_strchr("dDi", *e) ? 0 : p->sign);
 		set_hash(p, e);
 	}
+	p->padding = (ft_strchr("pdDioOuUxXbn", *e) && p->precision >= 0 &&
+		p->leftalign == 0) ? ' ' : p->padding;
 	p->type = *e;
 }
 

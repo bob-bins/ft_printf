@@ -63,7 +63,7 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-
+/*
 #include <locale.h>
 #include <stdio.h>
 #include <limits.h>
@@ -74,4 +74,4 @@ int main()
 	printf("::%d\n", ft_printf("{%05.c}", 0));
 	printf("::%d\n", printf("{%05.c}", 0));
 	return (0);
-}
+}*/

@@ -18,7 +18,7 @@ char	*ft_wctos(wchar_t c)
 	char	*e;
 
 	s = ft_memalloc(sizeof(*s) * 5);
-	if ((e = s) && c <= 0x7F)
+	if ((e = s) && c <= 0xFF)
 		*e++ = c;
 	else if (c <= 0x7FF)
 	{

@@ -116,7 +116,7 @@ char		*ft_printf_itoa_base(t_placehold *p, va_list a_list)
 		uint = cast_uintmax(va_arg(a_list, uintmax_t), p);
 	if ((uint == 0 && (!ft_strchr("poO", p->type) || (p->hash &&
 		ft_strchr("oO", p->type) && p->precision))) || (p->hash &&
-		ft_strchr("oO", p->type) && p->precision) > 0)
+		ft_strchr("oO", p->type) && p->precision > 0))
 		p->hash = NULL;
 	else if (uint > 0)
 		p->precision = MAX(ft_uintmax_len(uint, p->base), p->precision);

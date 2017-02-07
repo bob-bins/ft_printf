@@ -71,7 +71,7 @@ int main()
 {
 	setlocale(LC_ALL, "");
 	wchar_t w = 8805;
-	printf("::%d\n", ft_printf("{%05.c}", 0));
-	printf("::%d\n", printf("{%05.c}", 0));
+	printf("::%d\n", ft_printf("{%05s}", 0));
+	printf("::%d\n", printf("{%05s}", 0));
 	return (0);
 }*/

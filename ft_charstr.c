@@ -110,7 +110,9 @@ char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
 		else
 			s = ft_strdup(va_arg(a_list, char*));
 	}
-	if (!s)
+	if (!s && p->precision != -1)
 		s = ft_strdup("(null)");
+	else if (!s)
+		s = ft_memalloc(sizeof(*s));
 	return (s);
 }

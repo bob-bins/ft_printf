@@ -98,7 +98,6 @@ void	set_precision_field(t_placehold *p, const char **e, va_list a_list)
 				(*e)++;
 			}
 		}
-		//p->padding = ' ';/////////////////////////////////
 	}
 }
 

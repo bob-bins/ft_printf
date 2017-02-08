@@ -105,7 +105,7 @@ char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 	if (p->length != NULL && !ft_strcmp(p->length, "l"))
 		c = (wchar_t)va_arg(a_list, wint_t);
 	else
-		c = (char)(unsigned char)va_arg(a_list, int);
+		c = (unsigned char)va_arg(a_list, int);
 	return (ft_wctos(c));
 }
 

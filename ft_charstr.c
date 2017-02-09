@@ -107,6 +107,7 @@ char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 	{
 		c = (wchar_t)va_arg(a_list, wint_t);
 		s = ft_wctos(c);
+	}
 	else
 	{
 		c = (unsigned char)va_arg(a_list, int);

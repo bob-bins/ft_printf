@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
+# include <locale.h>
 
 int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 {
@@ -18,6 +19,7 @@ int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 	const char	*e;
 	size_t		count;
 
+	setlocale(LC_CTYPE, "");
 	count = 0;
 	if (format)
 	{
@@ -62,3 +64,16 @@ int	ft_printf(const char *format, ...)
 	va_end(a_list);
 	return (count);
 }
+/*
+#include <limits.h>
+#include <stdio.h>
+# include <locale.h>
+int main()
+{
+    setlocale(LC_CTYPE, "");
+	int i = 250;//1000;//0xA2;
+	ft_printf("%lc:\n", i);
+	printf("%lc:\n", i);
+	return 0;
+}
+*/

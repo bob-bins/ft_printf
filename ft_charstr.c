@@ -101,12 +101,19 @@ char	*ft_wtoc_strdup(wchar_t *w)
 char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 {
 	wchar_t c;
+	char	*s;
 
 	if (p->length != NULL && !ft_strcmp(p->length, "l"))
+	{
 		c = (wchar_t)va_arg(a_list, wint_t);
+		s = ft_wctos(c);
 	else
+	{
 		c = (unsigned char)va_arg(a_list, int);
-	return (ft_wctos(c));
+		s = ft_memalloc(sizeof(*s) * 2);
+		*s = c;
+	}
+	return (s);
 }
 
 /*

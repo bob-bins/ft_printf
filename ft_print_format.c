@@ -103,8 +103,8 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 		*str = p->type;
 	if (p->type == 'n')
 		return (0);
-	slen = (ft_strchr("cC", p->type) ? 1 : ft_strlen(str)) +
-		ft_strlen(p->hash) + (p->sign != 0 ? 1 : 0);
+	slen = (ft_strchr("cC", p->type)  && ft_strlen(str) == 0 ? 1 :
+		ft_strlen(str)) + ft_strlen(p->hash) + (p->sign != 0 ? 1 : 0);
 	count = ft_puteval(fd, p, str, slen);
 	if (str)
 		free(str);

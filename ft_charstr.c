@@ -102,7 +102,7 @@ char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 {
 	char	*s;
 
-	if (p->length != NULL && !ft_strcmp(p->length, "l"))
+	if (p->length != NULL && !ft_strcmp(p->length, "l") && MB_CUR_MAX > 1)
 		s = ft_wctos((wchar_t)va_arg(a_list, wint_t));
 	else
 	{

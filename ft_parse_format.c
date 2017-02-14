@@ -66,7 +66,7 @@ void	set_width_field(t_placehold *p, const char **e, va_list a_list)
 	{
 		if ((p->width = va_arg(a_list, int)) < 0)
 		{
-			p->width = 1;
+			p->width = p->width * -1;
 			p->leftalign = 1;
 			p->padding = ' ';
 		}

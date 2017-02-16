@@ -18,9 +18,11 @@ void	set_hash(t_placehold *p, const char *e)
 	{
 		if (ft_strchr("oO", *e))
 			p->hash = "0";
-		else if (ft_strchr("pxb", *e))
+		else if (ft_strchr("px", *e))
 			p->hash = "0x";
-		else if (ft_strchr("X", *e))
+		else if (*e == 'b')
+			p->hash = "0b";
+		else if (*e == 'X')
 			p->hash = "0X";
 		else
 		{

@@ -63,7 +63,7 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-#include <limits.h>
+/*#include <limits.h>
 #include <stdio.h>
 # include <locale.h>
 int main()
@@ -99,4 +99,4 @@ int main()
        printf("ac_printf: %d %-*.13ls %i %5.5%\n", 13, 18, L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B", -4078);
     ft_printf("ft_printf: %S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
        printf("ac_printf: %S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
-}
+}*/

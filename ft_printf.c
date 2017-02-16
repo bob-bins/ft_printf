@@ -18,7 +18,6 @@ int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 	const char	*e;
 	size_t		count;
 
-	setlocale(LC_CTYPE, "");
 	count = 0;
 	if (format)
 	{

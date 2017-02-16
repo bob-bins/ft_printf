@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
-# include <locale.h>
 
 int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 {

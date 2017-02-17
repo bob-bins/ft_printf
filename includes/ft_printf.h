@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 # include <stdlib.h>
 # include <stdarg.h>
+# include <float.h>
 # include "../libft/libft.h"
 # define MAX(a, b) (a > b ? a : b)
 
@@ -59,5 +60,8 @@ char				*ft_printf_str(t_placehold *p, size_t n, va_list a_list);
 char				*ft_wctos(wchar_t c);
 char				*ft_wtoc_strndup(wchar_t *w, size_t n);
 char				*ft_wtoc_strdup(wchar_t *w);
+char				*ft_ulfdecimaltoa(long double ld, int precision);
+char				*ft_ulfitoa(long double ld, int precision);
+char				*ft_printf_ftoa(t_placehold *p, va_list a_list);
 
 #endif

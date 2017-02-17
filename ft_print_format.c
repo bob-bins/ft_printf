@@ -20,10 +20,10 @@ void	set_hash(t_placehold *p, const char *e)
 			p->hash = "0";
 		else if (ft_strchr("px", *e))
 			p->hash = "0x";
-		else if (*e == 'b')
-			p->hash = "0b";
 		else if (*e == 'X')
 			p->hash = "0X";
+		else if (*e == 'b')
+			p->hash = "0b";
 		else
 		{
 			p->hash = NULL;
@@ -95,6 +95,8 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 	str = NULL;
 	if (p->type && ft_strchr("dDioOuUxXbp", p->type))
 		str = ft_printf_itoa_base(p, a_list);
+	else if (p->type && ft_strchr("fF", p->type))
+		str = ft_printf_ftoa(p, a_list);
 	else if (p->type && ft_strchr("cC", p->type))
 		str = ft_printf_ctos(p, a_list);
 	else if (p->type && ft_strchr("sS", p->type))

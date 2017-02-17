@@ -16,9 +16,10 @@ int	ft_putnstr_fd(int fd, char *s, int n)
 {
 	int len;
 
-	len = ft_strlen(s);
-	if (s)
+	len = 0;
+	if (s && n)
 	{
+		len = ft_strlen(s);
 		if (n < len)
 			len = n;
 		write(fd, s, len);

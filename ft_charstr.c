@@ -120,19 +120,19 @@ char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
 
 	if (p->length != NULL && !ft_strcmp(p->length, "l"))
 	{
-		if (p->precision >= 0)
+		if (p->prec >= 0)
 			s = ft_wtoc_strndup(va_arg(a_list, wchar_t*), n);
 		else
 			s = ft_wtoc_strdup(va_arg(a_list, wchar_t*));
 	}
 	else
 	{
-		if (p->precision >= 0)
+		if (p->prec >= 0)
 			s = ft_strndup(va_arg(a_list, char*), n);
 		else
 			s = ft_strdup(va_arg(a_list, char*));
 	}
-	if (!s && p->precision != 0)
+	if (!s && p->prec != 0)
 		s = ft_strdup("(null)");
 	else if (!s)
 		s = ft_memalloc(sizeof(*s));

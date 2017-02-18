@@ -25,7 +25,7 @@ typedef struct		s_placehold
 	char			padding;
 	char			*hash;
 	int				width;
-	int				precision;
+	int				prec;
 	char			*length;
 	char			type;
 	unsigned short	base;

@@ -62,13 +62,13 @@ int	ft_printf(const char *format, ...)
 	va_end(a_list);
 	return (count);
 }
-/*
+
 #include <limits.h>
 #include <stdio.h>
 # include <locale.h>
 int main()
 {
-    //setlocale(LC_CTYPE, "");
+    setlocale(LC_CTYPE, "");
 	double d = .19487534534367567;
 	printf("pp%.15f\n", d);
 	ft_printf("ft%.15f\n", d);
@@ -94,4 +94,3 @@ int main()
 	//printf("pp%.15f\n", 1.0/0);
 	return 0;
 }
-*/

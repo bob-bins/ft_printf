@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_floats.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/17 22:45:23 by mchen             #+#    #+#             */
+/*   Updated: 2017/02/17 22:45:39 by mchen            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/ft_printf.h"
 
 long double ft_ld_get_mantissa(long double ld)
@@ -87,22 +99,17 @@ char    *ft_printf_ftoa_handler(t_placehold *p, long double ld)
     char        *s;
     
     if (ft_strchr("fF", p->type))
-        s = ft_uld_itoa(ft_ld_badround(ld, p->precision), p->sigfig, p->precision, p->base);
+        s = ft_uld_itoa(ft_ld_badround(ld, p->prec), p->sigfig, p->prec, p->base);
     else if (ft_strchr("eE", p->type))
     {
         d = 1;
         if (ld >= 1)
-        {
             while (ld / d >= 10)
                 d *= 10;
-            s = ft_uld_itoa(ft_ld_badround(ld / d, p->precision), p->sigfig, p->precision, p->base);
-        }
         else
-        {
-            while (ld && ld * d < 1)
-                d *= 10;
-            s = ft_uld_itoa(ft_ld_badround(ld * d, p->precision), p->sigfig, p->precision, p->base);
-        }
+            while (ld && ld / d < 1)
+                d /= 10;
+        s = ft_uld_itoa(ft_ld_badround(ld / d, p->prec), p->sigfig, p->prec, p->base);
         s = ft_strjoin(s, p->type == 'e' ? "e" : "E");
         s = ft_strjoin(s, (ld >= 1 || ld == 0) ? "+" : "-");
         s = ft_strjoin(s, ft_uitoa_base(ft_uintmax_len(d, 10) - 1, p->base, 0, 2));
@@ -124,10 +131,10 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
     ld = (ld < 0 ? -ld : ld);
     if (ft_strchr("gG", p->type))
     {
-        p->precision = (p->precision == -1 ? 6 : p->precision);
-        p->precision = (p->precision == 0 ? 1 : p->precision);
-        p->sigfig = p->precision;
-        if (ld && ld < .00001 || ft_ld_integerpower(10, p->precision) <= ld) //100000.00 precision 5 is 100000 so thisll convert to e
+        p->prec = (p->prec == -1 ? 6 : p->prec);
+        p->prec = (p->prec == 0 ? 1 : p->prec);
+        p->sigfig = p->prec;
+        if (ld && ld < .00001 || ft_ld_integerpower(10, p->prec) <= ld)
             p->type -= 2;
         else
             p->type -= 1;
@@ -136,9 +143,9 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
     }
     else
     {
-        p->precision = p->precision == -1 ? 6 : p->precision;
+        p->prec = p->prec == -1 ? 6 : p->prec;
         s = ft_printf_ftoa_handler(p, ld);
     }
-    p->precision = ft_strlen(s);
+    p->prec = ft_strlen(s);
     return (s);
 }

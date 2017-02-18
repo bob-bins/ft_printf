@@ -40,7 +40,7 @@ void	init_placehold(t_placehold *p)
 	p->padding = ' ';
 	p->hash = NULL;
 	p->width = 0;
-	p->precision = -1;
+	p->prec = -1;
 	p->length = NULL;
 	p->type = 0;
 	p->base = 10;
@@ -76,8 +76,8 @@ size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)
 		count += ft_putstr_fd(p->hash, fd);
 		count += (p->sign ? ft_putchar_fd(p->sign, fd) : 0);
 	}
-	count += ft_putnstr_fd(fd, str, p->precision == -1 ?
-		MAX(slen, ft_strlen(str)) : p->precision);
+	count += ft_putnstr_fd(fd, str, p->prec == -1 ?
+		MAX(slen, ft_strlen(str)) : p->prec);
 	count += (p->type && (ft_strchr("cC", p->type) && ft_strlen(str) == 0) ?
 		ft_putchar_fd(*str, fd) : 0);
 	if (p->leftalign)
@@ -101,7 +101,7 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 	else if (p->type && ft_strchr("cC", p->type))
 		str = ft_printf_ctos(p, a_list);
 	else if (p->type && ft_strchr("sS", p->type))
-		str = ft_printf_str(p, p->precision, a_list);
+		str = ft_printf_str(p, p->prec, a_list);
 	else if (p->type && p->type == 'n')
 		*va_arg(a_list, int*) = cnt;
 	else if ((str = ft_memalloc(sizeof(*str) * 2)))

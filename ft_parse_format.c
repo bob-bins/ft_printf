@@ -30,9 +30,9 @@ void	set_type_field(t_placehold *p, const char *e)
 		set_hash(p, e);
 	}
 	else if (!ft_strchr("fFeEgG", *e))
-		p->precision = 1;
+		p->prec = 1;
 	p->sign = (!ft_strchr("dDifF", *e) ? 0 : p->sign);
-	p->padding = (ft_strchr("pdDioOuUxXb", *e) && p->precision >= 0 &&
+	p->padding = (ft_strchr("pdDioOuUxXb", *e) && p->prec >= 0 &&
 		p->leftalign == 0) ? ' ' : p->padding;
 	p->type = *e;
 }
@@ -86,20 +86,20 @@ void	set_precision_field(t_placehold *p, const char **e, va_list a_list)
 {
 	if (**e == '.')
 	{
-		p->precision = 0;
+		p->prec = 0;
 		(*e)++;
 		if (**e == '*')
 		{
-			p->precision = va_arg(a_list, int);
-			if (p->precision < 0)
-				p->precision = -1;
+			p->prec = va_arg(a_list, int);
+			if (p->prec < 0)
+				p->prec = -1;
 			(*e)++;
 		}
 		else
 		{
 			while (**e >= '0' && **e <= '9')
 			{
-				p->precision = p->precision * 10 + **e - '0';
+				p->prec = p->prec * 10 + **e - '0';
 				(*e)++;
 			}
 		}

@@ -70,7 +70,7 @@ char    *ft_uld_itoa(long double ld, int precision, short base)
         ld -= d * u;
         u /= 100000000 * base;
     }
-    if (precision > 0)
+    if (precision > 0 && ld)
     {
         s = ft_strjoin(s, ".");
         s = ft_strjoin(s, ft_uld_mantissatoa(ld, precision, base));
@@ -126,8 +126,12 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
             p->type -= 2;
         else
             p->type -= 1;
+        s = ft_printf_ftoa_handler(p, ld, p->precision, p->base);
+        s = ft_chrrepl_trailing(s, '0', 0);
+        s = ft_chrrepl_trailing(s, '.', 0);
     }
-    s = ft_printf_ftoa_handler(p, ld, p->precision, p->base);
+    else
+        s = ft_printf_ftoa_handler(p, ld, p->precision, p->base);
     p->precision = ft_strlen(s);
     return (s);
 }

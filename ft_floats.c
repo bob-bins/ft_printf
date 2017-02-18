@@ -126,7 +126,7 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
             p->type -= 2;
         else
             p->type -= 1;
-        s = ft_printf_ftoa_handler(p, ld, p->precision, p->base);
+        s = ft_printf_ftoa_handler(p, ld, --p->precision, p->base);
         s = ft_chrrepl_trailing(s, '0', 0);
         s = ft_chrrepl_trailing(s, '.', 0);
     }

@@ -101,5 +101,6 @@ void				ft_strrev(char *s);
 int					ft_putnstr_fd(int fd, char *s, int n);
 int					ft_putnchar_fd(int fd, char c, int n);
 unsigned short		ft_uintmax_len(uintmax_t num, unsigned short base);
+long double			ft_ld_integerpower(long double nb, long double power);
 
 #endif

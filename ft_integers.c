@@ -21,7 +21,8 @@ char		*ft_uitoa_base(uintmax_t value, unsigned short base,
 
 	dig = "0123456789abcdef0123456789ABCDEF";
 	dig += 16 * uppercase;
-	if ((ret = malloc(sizeof(*ret) * (digits + 1))))
+	if ((ret = malloc(sizeof(*ret) * (MAX(ft_uintmax_len(value, base), digits)
+		+ 1))))
 	{
 		i = 0;
 		while (value != 0 || (i == 0 && digits != 0) || i < digits)

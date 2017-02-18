@@ -29,7 +29,7 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->signed_num = (ft_strchr("dDi", *e) ? 1 : p->signed_num);
 		set_hash(p, e);
 	}
-	else if (!ft_strchr("fF", *e))
+	else if (!ft_strchr("fFeEgG", *e))
 		p->precision = 1;
 	p->sign = (!ft_strchr("dDifF", *e) ? 0 : p->sign);
 	p->padding = (ft_strchr("pdDioOuUxXb", *e) && p->precision >= 0 &&

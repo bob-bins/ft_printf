@@ -95,7 +95,7 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 	str = NULL;
 	if (p->type && ft_strchr("dDioOuUxXbp", p->type))
 		str = ft_printf_itoa_base(p, a_list);
-	else if (p->type && ft_strchr("fF", p->type))
+	else if (p->type && ft_strchr("fFeEgG", p->type))
 		str = ft_printf_ftoa(p, a_list);
 	else if (p->type && ft_strchr("cC", p->type))
 		str = ft_printf_ctos(p, a_list);

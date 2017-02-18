@@ -66,8 +66,8 @@ char    *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
     while (sigfig && (ld >= 1 || !ft_strlen(s)))
     {
         d = (uintmax_t)(ld / u);
-        sigfig -= (d == 0 ? 0 : 1);
         s = ft_strjoin(s, ft_uitoa_base(d, base, 0, 1));
+        sigfig -= ft_strlen(s);
         ld -= d * u;
         u /= 100000000 * base;
     }

@@ -83,14 +83,12 @@ char	*ft_wtoc_strdup(wchar_t *w)
 {
 	wchar_t	*t;
 	size_t	len;
-	short	size;
 
 	len = 0;
-	size = sizeof(wchar_t) / sizeof(char);
 	t = w;
 	if (t)
 		while (*t++)
-			len += size;
+			len += sizeof(wchar_t);
 	return (ft_wtoc_strndup(w, len));
 }
 

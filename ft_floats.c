@@ -101,7 +101,7 @@ char    *ft_printf_ftoa_handler(t_placehold *p, long double ld, int precision, s
             s = ft_uld_itoa(ft_ld_badround(ld * d, p->precision), p->precision, p->base);
         }
         s = ft_strjoin(s, p->type == 'e' ? "e" : "E");
-        s = ft_strjoin(s, ld >= 1 ? "+" : "-");
+        s = ft_strjoin(s, (ld >= 1 || ld == 0) ? "+" : "-");
         s = ft_strjoin(s, ft_uitoa_base(ft_uintmax_len(d, 10) - 1, p->base, 0, 2));
     }
     return (s);

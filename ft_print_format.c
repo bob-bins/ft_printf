@@ -46,6 +46,7 @@ void	init_placehold(t_placehold *p)
 	p->base = 10;
 	p->signed_num = 0;
 	p->uppercase = 0;
+	p->sigfig = -1;
 }
 
 void	eval_fields(t_placehold *p, const char **e, va_list a_list)

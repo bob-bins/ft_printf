@@ -122,16 +122,19 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
     if (ft_strchr("gG", p->type))
     {
         p->precision = (p->precision == -1 ? 5 : p->precision);
+        p->precision = (p->precision == 0 ? 1 : p->precision);
         if (ld && ld < .00001 || ft_ld_integerpower(10, p->precision) <= ld) //100000.00 precision 5 is 100000 so thisll convert to e
             p->type -= 2;
         else
             p->type -= 1;
         s = ft_printf_ftoa_handler(p, ld, p->precision, p->base);
-        s = ft_chrrepl_trailing(s, '0', 0);
-        s = ft_chrrepl_trailing(s, '.', 0);
+        s = ft_chrrepl_trailing(ft_chrrepl_trailing(s, '0', 0), '.', 0);
     }
     else
-        s = ft_printf_ftoa_handler(p, ld, p->precision == -1 ? 6 : p->precision, p->base);
+    {
+        p->precision = p->precision == -1 ? 6 : p->precision;
+        s = ft_printf_ftoa_handler(p, ld, p->precision, p->base);
+    }
     p->precision = ft_strlen(s);
     return (s);
 }

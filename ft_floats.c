@@ -63,7 +63,7 @@ char    *ft_ulfitoa(long double ld, int precision)
     while (u < ld / 1000000000)
         u *= 1000000000;
     s = ft_memalloc(sizeof(*s));
-    while (ld >= 1)
+    while (ld >= 1 || !ft_strlen(s))
     {
         d = (uintmax_t)(ld / u);
         s = ft_strjoin(s, ft_uitoa_base(d, 10, 0, 1));

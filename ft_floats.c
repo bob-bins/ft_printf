@@ -12,38 +12,38 @@
 
 #include "includes/ft_printf.h"
 
-long double ft_ld_get_mantissa(long double ld)
+long double ft_uld_get_mantissa(long double ld, short base)
 {
     long double u;
     uintmax_t   d;
     
     u = 1;
-    while (u < ld / 1000000000)
-        u *= 1000000000;
+    while (u < ld / ft_ld_integerpower(base, 8))
+        u *= ft_ld_integerpower(base, 8);
     while (ld >= 1)
     {
         d = (uintmax_t)(ld / u);
         ld -= d * u;
-        u /= 1000000000;
+        u /= ft_ld_integerpower(base, 8);
     }
     return (ld);
 }
 
-long double ft_ld_badround(long double ld, int precision)
+long double ft_uld_badround(long double ld, int precision, short base)
 {
     long double m;
     long double c;
     int         i;
     
-    m = ft_ld_get_mantissa(ld);
+    m = ft_uld_get_mantissa(ld, base);
     c = ld - m;
     i = precision;
     while (i-- > 0)
         m *= 10;
-    if (ft_ld_get_mantissa(m) >= .5)
-        m = m - ft_ld_get_mantissa(m) + 1.5;
+    if (ft_uld_get_mantissa(m, base) >= .5)
+        m = m - ft_uld_get_mantissa(m, base) + 1.1;
     else
-        m = m - ft_ld_get_mantissa(m) + .5;
+        m = m - ft_uld_get_mantissa(m, base) + .1;
     while (++i < precision)
         m /= 10;
     return (c + m);
@@ -72,8 +72,8 @@ char    *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
     char        *s;
 
     u = 1;
-    while (u < ld / 100000000 * base)
-        u *= 100000000 * base;
+    while (u < ld / ft_ld_integerpower(base, 8))
+        u *= ft_ld_integerpower(base, 8);
     s = ft_memalloc(sizeof(*s));
     while (sigfig && (ld >= 1 || !ft_strlen(s)))
     {
@@ -82,7 +82,7 @@ char    *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
         if (*s != '0')
             sigfig -= ft_strlen(s);
         ld -= d * u;
-        u /= 100000000 * base;
+        u /= ft_ld_integerpower(base, 8);
     }
     if (sigfig && precision > 0 && ld)
     {
@@ -97,22 +97,26 @@ char    *ft_printf_ftoa_handler(t_placehold *p, long double ld)
 {
     long double d;
     char        *s;
+    short       c;
     
-    if (ft_strchr("fF", p->type))
-        s = ft_uld_itoa(ft_ld_badround(ld, p->prec), p->sigfig, p->prec, p->base);
-    else if (ft_strchr("eE", p->type))
+    if (ft_strchr("fFaA", p->type))
+        s = ft_uld_itoa(ft_uld_badround(ld, p->prec, p->base), p->sigfig,
+            p->prec, p->base);
+    else
     {
         d = 1;
+        c = 0;
         if (ld >= 1)
-            while (ld / d >= 10)
+            while (ld / d >= 10 && ++c)
                 d *= 10;
         else
-            while (ld && ld / d < 1)
+            while (ld && ld / d < 1 && ++c)
                 d /= 10;
-        s = ft_uld_itoa(ft_ld_badround(ld / d, p->prec), p->sigfig, p->prec, p->base);
+        s = ft_uld_itoa(ft_uld_badround(ld / d, p->prec, p->base), p->sigfig,
+            p->prec, p->base);
         s = ft_strjoin(s, p->type == 'e' ? "e" : "E");
         s = ft_strjoin(s, (ld >= 1 || ld == 0) ? "+" : "-");
-        s = ft_strjoin(s, ft_uitoa_base(ft_uintmax_len(d, 10) - 1, p->base, 0, 2));
+        s = ft_strjoin(s, ft_uitoa_base(c, p->base, 0, 2));
     }
     return (s);
 }
@@ -146,6 +150,5 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
         p->prec = p->prec == -1 ? 6 : p->prec;
         s = ft_printf_ftoa_handler(p, ld);
     }
-    p->prec = ft_strlen(s);
     return (s);
 }

@@ -79,7 +79,7 @@ char    *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
     {
         d = (uintmax_t)(ld / u);
         s = ft_strjoin(s, ft_uitoa_base(d, base, 0, 1));
-        if (!(*s == '0' && ft_strlen(s) == 1))
+        if (*s != '0')
             sigfig -= ft_strlen(s);
         ld -= d * u;
         u /= ft_ld_integerpower(base, 8);

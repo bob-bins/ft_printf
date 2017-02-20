@@ -14,12 +14,12 @@
 
 void	set_type_field(t_placehold *p, const char *e)
 {
-	if (*e && ft_strchr("sSpdDioOuUxXcCb", *e))
+	if (*e && ft_strchr("sSpdDioOuUxXcCbaA", *e))
 	{
 		p->base = (*e == 'b' ? 2 : p->base);
 		p->base = (ft_strchr("oO", *e) ? 8 : p->base);
-		p->base = (ft_strchr("pxX", *e) ? 16 : p->base);
-		p->uppercase = (*e == 'X' ? 1 : p->uppercase);
+		p->base = (ft_strchr("pxXaA", *e) ? 16 : p->base);
+		p->uppercase = (ft_strchr("XA", *e) ? 1 : p->uppercase);
 		if (ft_strchr("DOUCS", *e))
 		{
 			if (p->length)
@@ -31,7 +31,7 @@ void	set_type_field(t_placehold *p, const char *e)
 	}
 	else if (!ft_strchr("fFeEgG", *e))
 		p->prec = 1;
-	p->sign = (!ft_strchr("dDifF", *e) ? 0 : p->sign);
+	p->sign = (!ft_strchr("dDifFfFeEgGaA", *e) ? 0 : p->sign);
 	p->padding = (ft_strchr("pdDioOuUxXb", *e) && p->prec >= 0 &&
 		p->leftalign == 0) ? ' ' : p->padding;
 	p->type = *e;

@@ -103,4 +103,6 @@ int					ft_putnchar_fd(int fd, char c, int n);
 unsigned short		ft_uintmax_len(uintmax_t num, unsigned short base);
 long double			ft_ld_integerpower(long double nb, long double power);
 char				*ft_chrrepl_trailing(char *s, char c, char r);
+char				*ft_strjoin_free(char *s1, char *s2);
+
 #endif

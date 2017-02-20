@@ -139,7 +139,7 @@ char        *ft_printf_ftoa(t_placehold *p, va_list a_list)
     {
         p->prec = (p->prec == 0 ? 1 : p->prec);
         p->sigfig = p->prec;
-        if (ld && ld < .00001 || ft_ld_integerpower(10, p->prec) <= ld)
+        if ((ld && ld < .00001) || ft_ld_integerpower(10, p->prec) <= ld)
             p->type -= 2;
         else
             p->type -= 1;

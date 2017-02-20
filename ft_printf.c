@@ -19,20 +19,20 @@ int	ft_vfdprintf(int fd, const char *format, va_list a_list)
 	size_t		count;
 
 	count = 0;
-	if (e = format)
+	if ((e = format))
 	{
 		p = malloc(sizeof(*p));
 		while (*e)
 		{
 			if (*e == '%')
 			{
-				count += ft_putnstr_fd(fd, format, e++ - format);
+				count += ft_putnstr_fd(fd, (char*)format, e++ - format);
 				eval_fields(p, &e, a_list);
 				count += print_eval(fd, p, a_list, count);
 				format = e + 1;
 			}
 			if (!*(e += *e ? 1 : 0))
-				count += ft_putnstr_fd(fd, format, e - format);
+				count += ft_putnstr_fd(fd, (char*)format, e - format);
 		}
 		free(p);
 	}
@@ -123,14 +123,14 @@ int main()
 	ft_printf("ft{%.6G}\n", 1.42);
 	printf("pp{%.6G}\n", 0.0);
 	ft_printf("ft{%.6G}\n", 0.0);
-	printf("pp%.15f\n", d);
-	ft_printf("ft%.15f\n", d);
+	printf("xp%f\n", 100001000000.5);
+	ft_printf("xt%f\n", 100001000000.5);
 	printf("pp%.5f\n", d);
 	ft_printf("ft%.5f\n", d);
 	printf("pp{%f}\n", 1.42);
 	ft_printf("ft{%f}\n", 1.42);
-	printf("pp{%.6F}\n", 1.42);
-	ft_printf("ft{%.6F}\n", 1.42);
+	printf("pp{%.6e}\n", .42);
+	ft_printf("ft{%.6e}\n", .42);
 	printf("pp{%.6F}\n", 0.0);
 	ft_printf("ft{%.6F}\n", 0.0);
 	printf("pp%.15g\n", d);
@@ -146,5 +146,4 @@ int main()
 	//printf("%lc:\n", i);
 	//printf("pp%.15f\n", 1.0/0);
 	return 0;
-}
-*/
+}*/

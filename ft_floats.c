@@ -133,9 +133,9 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
         ld += va_arg(a_list, double);
     p->sign = (ld < 0 ? '-' : p->sign);
     ld = (ld < 0 ? -ld : ld);
+    p->prec = (p->prec == -1 ? 6 : p->prec);
     if (ft_strchr("gG", p->type))
     {
-        p->prec = (p->prec == -1 ? 6 : p->prec);
         p->prec = (p->prec == 0 ? 1 : p->prec);
         p->sigfig = p->prec;
         if (ld && ld < .00001 || ft_ld_integerpower(10, p->prec) <= ld)
@@ -146,9 +146,6 @@ char    *ft_printf_ftoa(t_placehold *p, va_list a_list)
         s = ft_chrrepl_trailing(ft_chrrepl_trailing(s, '0', 0), '.', 0);
     }
     else
-    {
-        p->prec = p->prec == -1 ? 6 : p->prec;
         s = ft_printf_ftoa_handler(p, ld);
-    }
     return (s);
 }

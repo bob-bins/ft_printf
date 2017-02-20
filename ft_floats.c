@@ -72,17 +72,17 @@ char    *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
     char        *s;
 
     u = 1;
-    while (u < ld / ft_ld_integerpower(base, 8))
-        u *= ft_ld_integerpower(base, 8);
+    while (u < ld / base)
+        u *= base;
     s = ft_memalloc(sizeof(*s));
-    while (sigfig && (ld >= 1 || !ft_strlen(s)))
+    while (sigfig && (u >= 1 || !ft_strlen(s)))
     {
         d = (uintmax_t)(ld / u);
         s = ft_strjoin(s, ft_uitoa_base(d, base, 0, 1));
-        if (*s != '0')
+        if (!(*s == '0' && ft_strlen(s) == 1))
             sigfig -= ft_strlen(s);
         ld -= d * u;
-        u /= ft_ld_integerpower(base, 8);
+        u /= base;
     }
     if (sigfig && precision > 0 && ld)
     {

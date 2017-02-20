@@ -61,13 +61,13 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-#include <limits.h>
+/*#include <limits.h>
 #include <stdio.h>
 # include <locale.h>
 int main()
 {
     setlocale(LC_CTYPE, "");
- /*   ft_printf("ft_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
+    ft_printf("ft_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
        printf("ac_printf: %d % 0.10d %li %%\n", 13, 18, 3049600000);
     ft_printf("ft_printf: %d %-#*lx %i %%\n", 13, -18, 3049600000, -4078);
        printf("ac_printf: %d %-#*lx %i %%\n", 13, -18, 3049600000, -4078);
@@ -96,7 +96,7 @@ int main()
     ft_printf("ft_printf: %d %-*.13ls %i %5.5%\n", 13, 18, L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B", -4078);
        printf("ac_printf: %d %-*.13ls %i %5.5%\n", 13, 18, L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B", -4078);
     ft_printf("ft_printf: %S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
-       printf("ac_printf: %S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");*/
+       printf("ac_printf: %S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
     
 	double d = .19487534534367567;
 	printf("pp%.15a\n", .75);
@@ -147,3 +147,4 @@ int main()
 	//printf("pp%.15f\n", 1.0/0);
 	return 0;
 }
+*/

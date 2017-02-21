@@ -23,7 +23,7 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->exp_base = (ft_strchr("aA", *e) ? 2 : p->exp_base);
 		p->exp_len = (ft_strchr("aA", *e) ? 1 : p->exp_len);
 		p->exp_char = (ft_strchr("aA", *e) ? *e + 15 : p->exp_char);
-		p->exp_char = (ft_strchr("eEgG", *e) ? 'e' + p->uppercase * 32 : p->exp_char);
+		p->exp_char -= (ft_strchr("eEgG", *e) ? p->uppercase * 32 : 0);
 		if (ft_strchr("DOUCS", *e))
 		{
 			if (p->length)

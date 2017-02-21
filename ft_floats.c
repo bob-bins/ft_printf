@@ -123,9 +123,8 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
         s = ft_strjoin_free(s, (ld >= 1 || ld == 0) ? ft_strdup("+") :
             ft_strdup("-"));
         s = ft_strjoin_free(s, ft_uitoa_base(c, p->base, 0, p->exp_len));
-        s = p->uppercase ? ft_strucase(s) : s;
     }
-    return (s);
+    return (s = p->uppercase ? ft_strucase(s) : s);
 }
 
 char        *ft_printf_ftoa(t_placehold *p, va_list a_list)

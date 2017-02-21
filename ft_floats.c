@@ -93,7 +93,7 @@ char        *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
     {
         precision = sigfig > 0 ? sigfig : precision;
         s = ft_strjoin_free(s, ft_strdup("."));
-        s = ft_strjoin_free(s, ft_uld_mantissatoa(ld, precision, 10));
+        s = ft_strjoin_free(s, ft_uld_mantissatoa(ld, precision, base));
     }
     return (s);
 }
@@ -122,7 +122,7 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
         s = ft_strjoin_free(s, ft_strdup(ft_memset(ft_memalloc(2), p->exp_char, 1)));
         s = ft_strjoin_free(s, (ld >= 1 || ld == 0) ? ft_strdup("+") :
             ft_strdup("-"));
-        s = ft_strjoin_free(s, ft_uitoa_base(c, p->base, 0, p->exp_len));
+        s = ft_strjoin_free(s, ft_uitoa_base(c, 10, 0, p->exp_len));
     }
     return (s = p->uppercase ? ft_strucase(s) : s);
 }

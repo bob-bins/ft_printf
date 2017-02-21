@@ -112,7 +112,7 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
         d = 1;
         c = 0;
         if (ld >= 1)
-            while (ld / d >= p->base && ++c)
+            while (ld / d >= p->exp_base && ++c)
                 d *= p->exp_base;
         else
             while (ld && ld / d < 1 && ++c)

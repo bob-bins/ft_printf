@@ -93,7 +93,7 @@ char        *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
     {
         precision = sigfig > 0 ? sigfig : precision;
         s = ft_strjoin_free(s, ft_strdup("."));
-        s = ft_strjoin_free(s, ft_uld_mantissatoa(ld, precision, base));
+        s = ft_strjoin_free(s, ft_uld_mantissatoa(ld, precision, 10));
     }
     return (s);
 }

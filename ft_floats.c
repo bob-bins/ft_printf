@@ -16,7 +16,7 @@ long double ft_uld_get_mantissa(long double ld, short base)
 {
     long double u;
     uintmax_t   d;
-    
+
     u = 1;
     while (u < ld / ft_ld_integerpower(base, 8))
         u *= ft_ld_integerpower(base, 8);
@@ -34,7 +34,7 @@ long double ft_uld_badround(long double ld, int precision, short base)
     long double m;
     long double c;
     int         i;
-    
+
     if ((i = precision) != -1)
     {
         m = ft_uld_get_mantissa(ld, base);
@@ -107,10 +107,8 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
     if (ft_strchr("fF", p->type))
         s = ft_uld_itoa(ft_uld_badround(ld, p->prec, p->base), p->sigfig,
             p->prec, p->base);
-    else
+    else if (!(s = NULL) && (d = 1) && !(c = 0))
     {
-        d = 1;
-        c = 0;
         if (ld >= 1)
             while (ld / d >= p->exp_base && ++c)
                 d *= p->exp_base;
@@ -119,7 +117,8 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
                 d /= p->exp_base;
         s = ft_uld_itoa(ft_uld_badround(ld / d, p->prec, p->base), p->sigfig,
             p->prec, p->base);
-        s = ft_strjoin_free(s, ft_strdup(ft_memset(ft_memalloc(2), p->exp_char, 1)));
+        s = ft_strjoin_free(s, ft_strdup(ft_memset(ft_memalloc(2), p->exp_char,
+            1)));
         s = ft_strjoin_free(s, (ld >= 1 || ld == 0) ? ft_strdup("+") :
             ft_strdup("-"));
         s = ft_strjoin_free(s, ft_uitoa_base(c, 10, 0, p->exp_len));
@@ -129,8 +128,8 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
 
 char        *ft_printf_ftoa(t_placehold *p, va_list a_list)
 {
-    long double     ld;
-    char            *s;
+    long double ld;
+    char        *s;
 
     ld = 0;
     if (p->length && !ft_strcmp(p->length, "L"))

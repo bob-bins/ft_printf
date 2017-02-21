@@ -107,8 +107,9 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
     if (ft_strchr("fF", p->type))
         s = ft_uld_itoa(ft_uld_badround(ld, p->prec, p->base), p->sigfig,
             p->prec, p->base);
-    else if (!(s = NULL) && (d = 1) && !(c = 0))
+    else if ((d = 1))
     {
+        c = 0;
         if (ld >= 1)
             while (ld / d >= p->exp_base && ++c)
                 d *= p->exp_base;

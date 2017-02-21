@@ -14,12 +14,16 @@
 
 void	set_type_field(t_placehold *p, const char *e)
 {
-	if (*e && ft_strchr("sSpdDioOuUxXcCbaA", *e))
+	if (*e && ft_strchr("sSpdDioOuUxXcCbfFeEgGaA", *e))
 	{
+		p->uppercase = (ft_strchr("XEGA", *e) ? 1 : p->uppercase);
 		p->base = (*e == 'b' ? 2 : p->base);
 		p->base = (ft_strchr("oO", *e) ? 8 : p->base);
 		p->base = (ft_strchr("pxXaA", *e) ? 16 : p->base);
-		p->uppercase = (ft_strchr("XA", *e) ? 1 : p->uppercase);
+		p->exp_base = (ft_strchr("aA", *e) ? 2 : p->exp_base);
+		p->exp_len = (ft_strchr("aA", *e) ? 1 : p->exp_len);
+		p->exp_char = (ft_strchr("aA", *e) ? *e + 15 : p->exp_char);
+		p->exp_char = (ft_strchr("eEgG", *e) ? 'e' + p->uppercase * 32 : p->exp_char);
 		if (ft_strchr("DOUCS", *e))
 		{
 			if (p->length)
@@ -29,7 +33,7 @@ void	set_type_field(t_placehold *p, const char *e)
 		p->signed_num = (ft_strchr("dDi", *e) ? 1 : p->signed_num);
 		set_hash(p, e);
 	}
-	else if (!ft_strchr("fFeEgG", *e))
+	else
 		p->prec = 1;
 	p->sign = (!ft_strchr("dDifFfFeEgGaA", *e) ? 0 : p->sign);
 	p->padding = (ft_strchr("pdDioOuUxXb", *e) && p->prec >= 0 &&

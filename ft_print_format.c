@@ -14,13 +14,13 @@
 
 void	set_hash(t_placehold *p, const char *e)
 {
-	if (p->hash || *e == 'p')
+	if (p->hash || ft_strchr("paA", *e))
 	{
 		if (ft_strchr("oO", *e))
 			p->hash = "0";
-		else if (ft_strchr("px", *e))
+		else if (ft_strchr("pxa", *e))
 			p->hash = "0x";
-		else if (*e == 'X')
+		else if (ft_strchr("XA", *e))
 			p->hash = "0X";
 		else if (*e == 'b')
 			p->hash = "0b";
@@ -47,6 +47,9 @@ void	init_placehold(t_placehold *p)
 	p->signed_num = 0;
 	p->uppercase = 0;
 	p->sigfig = -1;
+	p->exp_base = 10;
+	p->exp_char = 0;
+	p->exp_len = 2;
 }
 
 void	eval_fields(t_placehold *p, const char **e, va_list a_list)
@@ -95,7 +98,7 @@ size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 	str = NULL;
 	if (p->type && ft_strchr("dDioOuUxXbp", p->type))
 		str = ft_printf_itoa_base(p, a_list);
-	else if (p->type && ft_strchr("fFeEgG", p->type))
+	else if (p->type && ft_strchr("fFeEgGaA", p->type))
 		str = ft_printf_ftoa(p, a_list);
 	else if (p->type && ft_strchr("cC", p->type))
 		str = ft_printf_ctos(p, a_list);

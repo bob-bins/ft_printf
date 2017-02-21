@@ -32,6 +32,9 @@ typedef struct		s_placehold
 	int				signed_num;
 	unsigned short	uppercase;
 	int				sigfig;
+	short			exp_base;
+	char			exp_char;
+	short			exp_len;
 }					t_placehold;
 
 int					ft_printf(const char *format, ...);

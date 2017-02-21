@@ -15,7 +15,7 @@
 char	*ft_strlcase(char *s)
 {
 	char *str;
-	
+
 	str = s;
 	if (s)
 	{

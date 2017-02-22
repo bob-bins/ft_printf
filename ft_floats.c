@@ -12,24 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-long double ft_uld_get_mantissa(long double ld, short base)
-{
-    long double u;
-    uintmax_t   d;
-
-    u = 1;
-    while (u < ld / ft_ld_integerpower(base, 8))
-        u *= ft_ld_integerpower(base, 8);
-    while (ld >= 1)
-    {
-        d = (uintmax_t)(ld / u);
-        ld -= d * u;
-        u /= ft_ld_integerpower(base, 8);
-    }
-    return (ld);
-}
-
-long double ft_uld_badround(long double ld, int precision, short base)
+static long double  ft_uld_badround(long double ld, int precision, short base)
 {
     long double m;
     long double c;
@@ -52,7 +35,7 @@ long double ft_uld_badround(long double ld, int precision, short base)
     return (ld);
 }
 
-char        *ft_uld_mantissatoa(long double ld, int precision, short base)
+static char         *ft_uld_mantissatoa(long double ld, int precision, short base)
 {
     int     i;
     char    *s;
@@ -69,8 +52,7 @@ char        *ft_uld_mantissatoa(long double ld, int precision, short base)
     }
     return (s);
 }
-
-char        *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
+static char         *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
 {
     long double u;
     uintmax_t   d;
@@ -98,7 +80,7 @@ char        *ft_uld_itoa(long double ld, int sigfig, int precision, short base)
     return (s);
 }
 
-char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
+static char         *ft_printf_ftoa_handler(t_placehold *p, long double ld)
 {
     long double d;
     char        *s;
@@ -127,7 +109,7 @@ char        *ft_printf_ftoa_handler(t_placehold *p, long double ld)
     return (s = p->uppercase ? ft_strucase(s) : s);
 }
 
-char        *ft_printf_ftoa(t_placehold *p, va_list a_list)
+char                *ft_printf_ftoa(t_placehold *p, va_list a_list)
 {
     long double ld;
     char        *s;

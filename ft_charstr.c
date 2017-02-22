@@ -16,7 +16,7 @@
 ** Converts wide character to a char* using UTF-8 formatting
 */
 
-char	*ft_wctos(wchar_t c)
+static char	*ft_wctos(wchar_t c)
 {
 	char	*s;
 	char	*e;
@@ -50,7 +50,7 @@ char	*ft_wctos(wchar_t c)
 ** return string
 */
 
-char	*ft_wtoc_strndup(wchar_t *w, size_t n)
+static char	*ft_wtoc_strndup(wchar_t *w, size_t n)
 {
 	char	*s;
 	char	*t;
@@ -79,7 +79,7 @@ char	*ft_wtoc_strndup(wchar_t *w, size_t n)
 ** Finds the num of bits of w, then calls ft_wtoc_strndup on that size
 */
 
-char	*ft_wtoc_strdup(wchar_t *w)
+static char	*ft_wtoc_strdup(wchar_t *w)
 {
 	wchar_t	*t;
 	size_t	len;
@@ -96,7 +96,7 @@ char	*ft_wtoc_strdup(wchar_t *w)
 ** Handles %cC
 */
 
-char	*ft_printf_ctos(t_placehold *p, va_list a_list)
+char		*ft_printf_ctos(t_placehold *p, va_list a_list)
 {
 	char	*s;
 
@@ -114,7 +114,7 @@ char	*ft_printf_ctos(t_placehold *p, va_list a_list)
 ** Handles %sS
 */
 
-char	*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
+char		*ft_printf_str(t_placehold *p, size_t n, va_list a_list)
 {
 	char	*s;
 

@@ -12,7 +12,7 @@
 
 #include "includes/ft_printf.h"
 
-void	set_hash(t_placehold *p, const char *e)
+void			set_hash(t_placehold *p, const char *e)
 {
 	if (p->hash || ft_strchr("paA", *e))
 	{
@@ -33,7 +33,7 @@ void	set_hash(t_placehold *p, const char *e)
 	}
 }
 
-void	init_placehold(t_placehold *p)
+static void		init_placehold(t_placehold *p)
 {
 	p->leftalign = 0;
 	p->sign = 0;
@@ -52,7 +52,7 @@ void	init_placehold(t_placehold *p)
 	p->exp_len = 2;
 }
 
-void	eval_fields(t_placehold *p, const char **e, va_list a_list)
+void			eval_fields(t_placehold *p, const char **e, va_list a_list)
 {
 	init_placehold(p);
 	set_flag_field(p, e);
@@ -62,7 +62,7 @@ void	eval_fields(t_placehold *p, const char **e, va_list a_list)
 	set_type_field(p, *e);
 }
 
-size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)
+static size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)
 {
 	size_t	count;
 
@@ -89,7 +89,7 @@ size_t	ft_puteval(int fd, t_placehold *p, char *str, size_t slen)
 	return (count);
 }
 
-size_t	print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
+size_t			print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt)
 {
 	char	*str;
 	size_t	slen;

@@ -12,8 +12,8 @@
 
 #include "includes/ft_printf.h"
 
-char		*ft_uitoa_base(uintmax_t value, unsigned short base,
-				unsigned short uppercase, int digits)
+char			*ft_uitoa_base(uintmax_t value, unsigned short base,
+					unsigned short uppercase, int digits)
 {
 	char	*ret;
 	char	*dig;
@@ -36,7 +36,7 @@ char		*ft_uitoa_base(uintmax_t value, unsigned short base,
 	return (ret);
 }
 
-intmax_t	cast_signed_size_t(intmax_t num)
+static intmax_t		cast_signed_size_t(intmax_t num)
 {
 	if (sizeof(size_t) == sizeof(short))
 		return ((short)num);
@@ -50,7 +50,7 @@ intmax_t	cast_signed_size_t(intmax_t num)
 		return (num);
 }
 
-intmax_t	cast_intmax(intmax_t num, t_placehold *p)
+static intmax_t		cast_intmax(intmax_t num, t_placehold *p)
 {
 	if (p->length != NULL)
 	{
@@ -70,7 +70,7 @@ intmax_t	cast_intmax(intmax_t num, t_placehold *p)
 	return ((int)num);
 }
 
-uintmax_t	cast_uintmax(uintmax_t num, t_placehold *p)
+static uintmax_t	cast_uintmax(uintmax_t num, t_placehold *p)
 {
 	if (p->length != NULL)
 	{
@@ -97,7 +97,7 @@ uintmax_t	cast_uintmax(uintmax_t num, t_placehold *p)
 ** then returns the unsigned number as string.
 */
 
-char		*ft_printf_itoa_base(t_placehold *p, va_list a_list)
+char				*ft_printf_itoa_base(t_placehold *p, va_list a_list)
 {
 	intmax_t	sint;
 	uintmax_t	uint;

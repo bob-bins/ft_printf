@@ -6,14 +6,14 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 22:26:36 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:31:31 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/21 19:46:24 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-char			*ft_uitoa_base(uintmax_t value, unsigned short base,
-					unsigned short uppercase, int digits)
+char				*ft_uitoa_base(uintmax_t value, unsigned short base,
+						unsigned short uppercase, int digits)
 {
 	char	*ret;
 	char	*dig;

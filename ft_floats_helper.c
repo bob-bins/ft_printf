@@ -6,25 +6,25 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 22:45:23 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/17 22:45:39 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/21 19:53:09 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
 
-long double ft_uld_get_mantissa(long double ld, short base)
+long double	ft_uld_get_mantissa(long double ld, short base)
 {
-    long double u;
-    uintmax_t   d;
+	long double	u;
+	uintmax_t	d;
 
-    u = 1;
-    while (u < ld / ft_ld_integerpower(base, 8))
-        u *= ft_ld_integerpower(base, 8);
-    while (ld >= 1)
-    {
-        d = (uintmax_t)(ld / u);
-        ld -= d * u;
-        u /= ft_ld_integerpower(base, 8);
-    }
-    return (ld);
+	u = 1;
+	while (u < ld / ft_ld_integerpower(base, 8))
+		u *= ft_ld_integerpower(base, 8);
+	while (ld >= 1)
+	{
+		d = (uintmax_t)(ld / u);
+		ld -= d * u;
+		u /= ft_ld_integerpower(base, 8);
+	}
+	return (ld);
 }

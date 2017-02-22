@@ -6,7 +6,7 @@
 /*   By: mchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/03 22:27:35 by mchen             #+#    #+#             */
-/*   Updated: 2017/02/03 22:47:29 by mchen            ###   ########.fr       */
+/*   Updated: 2017/02/21 19:52:11 by mchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int					ft_vfdprintf(int fd, const char *format, va_list a_list);
 int					ft_fdprintf(int fd, const char *format, ...);
 void				set_hash(t_placehold *p, const char *e);
 void				eval_fields(t_placehold *p, const char **e, va_list a_list);
-size_t				print_eval(int fd, t_placehold *p, va_list a_list, size_t cnt);
+size_t				print_eval(int fd, t_placehold *p, va_list a_list,
+						size_t cnt);
 void				set_type_field(t_placehold *p, const char *e);
 void				set_flag_field(t_placehold *p, const char **e);
 void				set_width_field(t_placehold *p, const char **e,
@@ -55,7 +56,7 @@ char				*ft_uitoa_base(uintmax_t value, unsigned short base,
 char				*ft_printf_itoa_base(t_placehold *p, va_list a_list);
 char				*ft_printf_ctos(t_placehold *p, va_list a_list);
 char				*ft_printf_str(t_placehold *p, size_t n, va_list a_list);
-char                *ft_printf_ftoa(t_placehold *p, va_list a_list);
+char				*ft_printf_ftoa(t_placehold *p, va_list a_list);
 long double			ft_uld_get_mantissa(long double ld, short base);
 
 #endif

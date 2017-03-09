@@ -2,8 +2,7 @@
 
 Mimics most of printf's behavior.
 
-I was trying to write concise code under some pretty stringent formatting restrictions.
-My goal to write the code using the fewest number of lines (ignoring my use of libft)
-compromises efficiency as well as a little bit on organization for floating point handling.
+Concise, though inefficient code due to some stringent formatting restrictions:
+(max of 25 lines per function, 4 parameters per function, 5 variables per function, etc.)
 
 Enjoy!
